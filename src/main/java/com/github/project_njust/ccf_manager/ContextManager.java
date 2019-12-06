@@ -17,9 +17,8 @@ public class ContextManager implements ServletContextListener {
     public void contextInitialized(ServletContextEvent evt) {
         servletContext = evt.getServletContext();
     }
-
-
-
+    //
+    //
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
     }
