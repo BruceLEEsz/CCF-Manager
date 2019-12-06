@@ -10,7 +10,7 @@ public class ContextManager implements ServletContextListener {
     private static ServletContext servletContext;
 
 
-    public static ServletContext getServletContext() {
+    public static ServletContext getServletContext() {//
         return servletContext;
     }
 
