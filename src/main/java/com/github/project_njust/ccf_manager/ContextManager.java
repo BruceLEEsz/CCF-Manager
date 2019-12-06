@@ -9,6 +9,7 @@ import javax.servlet.ServletContextListener;
 public class ContextManager implements ServletContextListener {
     private static ServletContext servletContext;
 
+
     public static ServletContext getServletContext() {
         return servletContext;
     }
