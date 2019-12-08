@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+</head>
+<body>
+<div id="test">
+    <label>请选择文件</label>
+    <input id="file" type="file"/>
+    <br/>
+    <button v-on:click="updata">点击上传</button>
+</div>
+<script>
+    var formData = new window.FormData();
+    var vm = new Vue({
+        el: "#test",
+        data: {
+            formData: formData
+        },
+        methods: {
+            updata: function () {
+                this.formData.append('userfile', document.getElementById('file').files[0]);
+                this.formData.append('token', "v1");
+                axios({
+                    url: '/File/upload',
+                    method: 'POST',
+                    data: formData
+                }).then(function(rep){
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>
