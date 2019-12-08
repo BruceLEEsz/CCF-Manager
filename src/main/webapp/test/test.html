@@ -13,6 +13,7 @@
     <input id="file" type="file"/>
     <br/>
     <button v-on:click="updata">点击上传</button>
+    <button v-on:click="test">点击测试</button>
 </div>
 <script>
     var formData = new window.FormData();
@@ -30,6 +31,23 @@
                     method: 'POST',
                     data: formData
                 }).then(function(rep){
+                })
+            },
+            test: function(){
+                axios(
+                    {
+                        url:'/Data/example',
+                        method: 'POST',
+                        data: {
+                            parms:{
+                                fileId: 123
+                            },
+                            token: 'test'
+                        }
+                    }
+                ).then(function(rep){
+                    console.log(rep.data.token)
+                    console.log(rep.data.result.输出结果键)
                 })
             }
         }
