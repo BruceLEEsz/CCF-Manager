@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.project_njust.ccf_manager.dao.ExamGradeMapper" >
+  <resultMap id="BaseResultMap" type="com.github.project_njust.ccf_manager.model.ExamGrade" >
+    <constructor >
+      <idArg column="StudentID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ExamGrade" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Data" jdbcType="CHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    StudentID, ExamGrade, Data
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from examgrade
+    where StudentID = #{studentid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from examgrade
+    where StudentID = #{studentid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.github.project_njust.ccf_manager.model.ExamGrade" >
+    insert into examgrade (StudentID, ExamGrade, Data
+      )
+    values (#{studentid,jdbcType=INTEGER}, #{examgrade,jdbcType=INTEGER}, #{data,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.project_njust.ccf_manager.model.ExamGrade" >
+    insert into examgrade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentid != null" >
+        StudentID,
+      </if>
+      <if test="examgrade != null" >
+        ExamGrade,
+      </if>
+      <if test="data != null" >
+        Data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="examgrade != null" >
+        #{examgrade,jdbcType=INTEGER},
+      </if>
+      <if test="data != null" >
+        #{data,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.github.project_njust.ccf_manager.model.ExamGrade" >
+    update examgrade
+    <set >
+      <if test="examgrade != null" >
+        ExamGrade = #{examgrade,jdbcType=INTEGER},
+      </if>
+      <if test="data != null" >
+        Data = #{data,jdbcType=CHAR},
+      </if>
+    </set>
+    where StudentID = #{studentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.github.project_njust.ccf_manager.model.ExamGrade" >
+    update examgrade
+    set ExamGrade = #{examgrade,jdbcType=INTEGER},
+      Data = #{data,jdbcType=CHAR}
+    where StudentID = #{studentid,jdbcType=INTEGER}
+  </update>
+</mapper>
