@@ -6,7 +6,7 @@ public class SQLTest {
 
     @Test
     public void test() {
-        
+
     }
 
 }
