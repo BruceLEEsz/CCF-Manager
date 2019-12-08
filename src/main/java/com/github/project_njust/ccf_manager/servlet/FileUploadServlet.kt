@@ -16,10 +16,10 @@ import javax.servlet.http.HttpServletResponse
 import kotlin.collections.HashMap
 
 
-//@WebServlet(
-//        urlPatterns = ["/File/upload"],
-//        asyncSupported = true
-//)
+@WebServlet(
+        urlPatterns = ["/File/upload"],
+        asyncSupported = true
+)
 class FileUploadServlet : HttpServlet() {
 
     val factory: FileItemFactory = DiskFileItemFactory(DiskFileItemFactory.DEFAULT_SIZE_THRESHOLD, FileManager.tempFilesFolder)
@@ -81,6 +81,7 @@ class FileUploadServlet : HttpServlet() {
                 out.close();
                 fileStream.close();
                 cacheFiles[uuid] = file
+                TODO()
             } else {
                 val fieldName = fileItem.getFieldName();
                 val fieldValue = fileItem.getString();
