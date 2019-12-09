@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.project_njust.ccf_manager.dao.ExamInformationMapper">
+  <resultMap id="BaseResultMap" type="com.github.project_njust.ccf_manager.model.ExamInformation">
+    <constructor>
+      <arg column="ExamScore" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ExamDate" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="Data" javaType="java.lang.String" jdbcType="CHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.github.project_njust.ccf_manager.model.ExamInformation">
+    insert into examinformation (ExamScore, ExamDate, Data
+      )
+    values (#{examscore,jdbcType=INTEGER}, #{examdate,jdbcType=DATE}, #{data,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.project_njust.ccf_manager.model.ExamInformation">
+    insert into examinformation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examscore != null">
+        ExamScore,
+      </if>
+      <if test="examdate != null">
+        ExamDate,
+      </if>
+      <if test="data != null">
+        Data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examscore != null">
+        #{examscore,jdbcType=INTEGER},
+      </if>
+      <if test="examdate != null">
+        #{examdate,jdbcType=DATE},
+      </if>
+      <if test="data != null">
+        #{data,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.github.project_njust.ccf_manager.model.ExamInformation">
+    <constructor>
+      <arg column="ExamScore" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ExamDate" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="Data" javaType="java.lang.String" jdbcType="CHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.github.project_njust.ccf_manager.model.ExamInformation">
+    insert into examinformation (ExamScore, ExamDate, Data
+      )
+    values (#{examscore,jdbcType=INTEGER}, #{examdate,jdbcType=DATE}, #{data,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.project_njust.ccf_manager.model.ExamInformation">
+    insert into examinformation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examscore != null">
+        ExamScore,
+      </if>
+      <if test="examdate != null">
+        ExamDate,
+      </if>
+      <if test="data != null">
+        Data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examscore != null">
+        #{examscore,jdbcType=INTEGER},
+      </if>
+      <if test="examdate != null">
+        #{examdate,jdbcType=DATE},
+      </if>
+      <if test="data != null">
+        #{data,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

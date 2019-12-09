@@ -1,0 +1,16 @@
+Index: src/test/java/SQLTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/test/java/SQLTest.java	(revision 662347ec785ff55df483f41cb6c8350a22158e29)
++++ src/test/java/SQLTest.java	(date 1575784632603)
+@@ -6,7 +6,7 @@
+ 
+     @Test
+     public void test() {
+-        
++
+     }
+ 
+ }

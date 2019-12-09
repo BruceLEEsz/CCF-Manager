@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.project_njust.ccf_manager.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.github.project_njust.ccf_manager.model.Student">
+    <constructor>
+      <arg column="StudentID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="Data" javaType="java.lang.String" jdbcType="CHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.github.project_njust.ccf_manager.model.Student">
+    insert into student (StudentID, Data)
+    values (#{studentid,jdbcType=VARCHAR}, #{data,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.project_njust.ccf_manager.model.Student">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentid != null">
+        StudentID,
+      </if>
+      <if test="data != null">
+        Data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentid != null">
+        #{studentid,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null">
+        #{data,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.github.project_njust.ccf_manager.model.Student">
+    <constructor>
+      <arg column="StudentID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="Data" javaType="java.lang.String" jdbcType="CHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.github.project_njust.ccf_manager.model.Student">
+    insert into student (StudentID, Data)
+    values (#{studentid,jdbcType=VARCHAR}, #{data,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.project_njust.ccf_manager.model.Student">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentid != null">
+        StudentID,
+      </if>
+      <if test="data != null">
+        Data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentid != null">
+        #{studentid,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null">
+        #{data,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
