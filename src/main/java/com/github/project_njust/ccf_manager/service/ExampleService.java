@@ -1,15 +1,9 @@
 package com.github.project_njust.ccf_manager.service;
 
 import com.github.project_njust.ccf_manager.UserType;
-import com.github.project_njust.ccf_manager.service.Service;
-import com.github.project_njust.ccf_manager.service.SubmitData;
-import com.github.project_njust.ccf_manager.servlet.FileUploadServlet;
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
-import java.util.UUID;
 
 public class ExampleService extends Service {
 
@@ -18,7 +12,7 @@ public class ExampleService extends Service {
     }
 
     @Override
-    public @NotNull JsonSection onRequest(@NotNull SubmitData input) {
+    public @NotNull JsonSection onRequest(@NotNull ISubmitData input) {
         JsonSection result = JsonSection.createSection();
         String from = input.getData().getString("fileId");
         System.out.println(from);

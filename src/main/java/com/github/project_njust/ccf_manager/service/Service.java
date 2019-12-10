@@ -18,7 +18,7 @@ public abstract class Service {
     }
 
     @NotNull
-    public abstract JsonSection onRequest(@NotNull SubmitData input);
+    public abstract JsonSection onRequest(@NotNull ISubmitData input);
 
     @NotNull
 

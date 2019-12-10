@@ -6,5 +6,5 @@ import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
 abstract class CoroutinesService(name: String, vararg types: UserType) : Service(name, *types) {
 
 
-    abstract suspend fun onCoroutinesRequest(input: SubmitData): JsonSection
+    abstract suspend fun onCoroutinesRequest(input: ISubmitData): JsonSection
 }

@@ -1,7 +1,6 @@
 package com.github.project_njust.ccf_manager.servlet
 
 import com.github.project_njust.ccf_manager.ContextManager
-import com.github.project_njust.ccf_manager.User
 import com.github.project_njust.ccf_manager.service.CoroutinesService
 import com.github.project_njust.ccf_manager.service.ExampleService
 import com.github.project_njust.ccf_manager.service.Service
@@ -29,14 +28,6 @@ class DataServlet : HttpServlet() {
         resp.writer.println("错误 请用POST访问")
     }
 
-    data class Submit(
-            val setcion: JsonSection,
-            val tuser: User? = null
-    ) : SubmitData {
-        override fun getData(): JsonSection = setcion
-        override fun getUser(): User? = tuser
-    }
-
     override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
         req.characterEncoding = ContextManager.getEncoding()
         val data = MemorySection.parser.parse(InputStreamReader(req.inputStream)).asJsonObject
@@ -56,7 +47,7 @@ class DataServlet : HttpServlet() {
             val parms = MemorySection(data)
             val token = parms.getString("token")
             val input = parms.getJsonSection("parms")!!
-            val submitData = Submit(input)
+            val submitData = SubmitData(input)
             val result = withTimeoutOrNull(5000) {
                 if (service.isCoroutines) {
                     val cs = service as CoroutinesService
