@@ -6,3 +6,4 @@ target/*
 nbproject/*
 dokka/*
 src/main/webapp/vendors/*
+src/main/webapp/build/*
