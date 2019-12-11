@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <title>CCF免费报名系统</title>
+
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="login">
+
+<div id="login">
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <form>
+                    <h1>登陆</h1>
+                    <div>
+                        <input type="text" class="form-control" v-model="username" placeholder="用户名" required=""/>
+                    </div>
+                    <div>
+                        <input type="password" class="form-control" v-model="password" placeholder="密码"
+                               required=""/>
+                    </div>
+                    <div>
+                        <button class="btn btn-default submit" v-on:click="s_login">学生登入</button>
+                        <button class="btn btn-default submit" v-on:click="a_login">管理员登入</button>
+                        <a class="reset_pass" href="#">忘记密码?</a>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script src="cookie.js" type="text/javascript"></script>
+<script src="login.js" type="text/javascript"></script>
+</body>
+</html>
