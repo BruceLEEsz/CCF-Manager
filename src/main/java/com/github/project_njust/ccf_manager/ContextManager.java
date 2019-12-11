@@ -25,10 +25,10 @@ public class ContextManager implements ServletContextListener {
         DataServlet.Companion.init();
         System.out.println("Tomcat初始化完成");
     }
-    //
-    //
+
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
+        FileManager.clearTempFiles();
     }
 
     @NotNull

@@ -2,10 +2,12 @@ package com.github.project_njust.ccf_manager.servlet
 
 import com.github.project_njust.ccf_manager.ContextManager
 import com.github.project_njust.ccf_manager.FileManager
+import org.apache.commons.fileupload.FileItem
 import org.apache.commons.fileupload.FileItemFactory
 import org.apache.commons.fileupload.ProgressListener
 import org.apache.commons.fileupload.disk.DiskFileItemFactory
 import org.apache.commons.fileupload.servlet.ServletFileUpload
+import org.apache.log4j.Logger
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
@@ -30,7 +32,8 @@ class FileUploadServlet : HttpServlet() {
 
         override fun update(pBytesRead: Long, pContentLength: Long, pItems: Int) {
         }
-        fun init(){
+
+        fun init() {
         }
     }
 
@@ -38,7 +41,36 @@ class FileUploadServlet : HttpServlet() {
         fileUpload.fileSizeMax = ContextManager.getServletContext().getInitParameter("maxFileSize").toInt() * 1024 * 1024L
         fileUpload.sizeMax = fileUpload.fileSizeMax * 10
         fileUpload.progressListener = Companion
-        println("Servlet初始化完成")
+        Logger.getLogger(FileUploadServlet::class.java).info("Servlet初始化完成")
+    }
+
+    private fun parseFile(fileItem: FileItem): UUID? {
+        if (fileItem.isFormField) {
+            return null
+        }
+        val name = fileItem.name
+        val uuid = UUID.randomUUID()
+        val realFileName = "$uuid-$name"
+        val file = File(FileManager.tempFilesFolder, realFileName)
+        if (!file.parentFile.exists()) {
+            file.parentFile.mkdirs()
+        }
+        val fileStream = fileItem.inputStream
+        val out = FileOutputStream(file)
+        val buffer = ByteArray(1024)
+        var len = -1;
+        do {
+            len = fileStream.read(buffer)
+            if (len == -1) {
+                break
+            }
+            out.write(buffer, 0, len)
+        } while (true)
+        out.flush()
+        out.close()
+        fileStream.close()
+        cacheFiles[uuid] = file
+        return uuid
     }
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
@@ -48,44 +80,20 @@ class FileUploadServlet : HttpServlet() {
     }
 
     override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
-        println("接收信息")
         req.characterEncoding = ContextManager.getEncoding()
         if (!ServletFileUpload.isMultipartContent(req)) {
             resp.status = 400
             return
         }
+        val forms = mutableListOf<FileItem>()
+        val files = mutableListOf<FileItem>()
         for (fileItem in fileUpload.parseRequest(req)) {
             if (!fileItem.isFormField) {
-                val name = fileItem.name
-                val uuid = UUID.randomUUID()
-                val realFileName = "$uuid-$name"
-                //创建要保存的文件
-                val file = File(FileManager.tempFilesFolder, realFileName);
-                //判断文件夹是否存在
-                if (!file.getParentFile().exists()) {
-                    file.getParentFile().mkdirs();
-                }
-                val fileStream = fileItem.getInputStream();
-                val out = FileOutputStream(file);
-                val buffer = ByteArray(1024)
-                var len = -1;
-                do {
-                    len = fileStream.read(buffer)
-                    if (len == -1) {
-                        break
-                    }
-                    out.write(buffer, 0, len);
-                } while (true)
-                out.flush();
-                //关闭流
-                out.close();
-                fileStream.close();
-                cacheFiles[uuid] = file
-                TODO()
+                files += fileItem
             } else {
-                val fieldName = fileItem.getFieldName();
-                val fieldValue = fileItem.getString();
-                System.out.println("$fieldName:$fieldValue");
+                forms += fileItem
+//                val fieldName = fileItem.getFieldName();
+//                val fieldValue = fileItem.getString();
             }
         }
 
