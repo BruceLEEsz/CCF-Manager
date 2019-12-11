@@ -4,7 +4,7 @@
         <Console name="WINDOWS_COMPAT" target="SYSTEM_OUT">
             <PatternLayout pattern="[%d{HH:mm:ss} %level]: %msg%n" />
         </Console>
-        <RollingRandomAccessFile name="File" fileName="./CompetitionManagerCore/logs/latest.log" filePattern="./CompetitionManagerCore/logs/%d{yyyy-MM-dd}-%i.log.gz">
+        <RollingRandomAccessFile name="File" fileName="./CCF Manager/logs/latest.log" filePattern="./CCF Manager/logs/%d{yyyy-MM-dd}-%i.log.gz">
             <PatternLayout pattern="[%d{HH:mm:ss}] [%t/%level]: %msg%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy />

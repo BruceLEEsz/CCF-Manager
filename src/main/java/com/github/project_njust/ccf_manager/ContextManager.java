@@ -2,6 +2,7 @@ package com.github.project_njust.ccf_manager;
 
 import com.github.project_njust.ccf_manager.servlet.DataServlet;
 import com.github.project_njust.ccf_manager.servlet.FileUploadServlet;
+import com.github.project_njust.ccf_manager.wrapper.token.TokenManager;
 
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -21,6 +22,7 @@ public class ContextManager implements ServletContextListener {
     public void contextInitialized(ServletContextEvent evt) {
         servletContext = evt.getServletContext();
         FileManager.checkFolder();
+        TokenManager.init();
         FileUploadServlet.Companion.init();
         DataServlet.Companion.init();
         System.out.println("Tomcat初始化完成");
