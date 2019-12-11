@@ -2,6 +2,7 @@ package com.github.project_njust.ccf_manager.servlet
 
 import com.github.project_njust.ccf_manager.ContextManager
 import com.github.project_njust.ccf_manager.FileManager
+import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
 import org.apache.commons.fileupload.FileItem
 import org.apache.commons.fileupload.FileItemFactory
 import org.apache.commons.fileupload.ProgressListener
@@ -92,9 +93,12 @@ class FileUploadServlet : HttpServlet() {
                 files += fileItem
             } else {
                 forms += fileItem
-//                val fieldName = fileItem.getFieldName();
-//                val fieldValue = fileItem.getString();
             }
+        }
+        val token = forms.find { it.name == "token" }
+        val result = JsonSection.createSection()
+        if(token == null){
+            result[""]
         }
 
     }

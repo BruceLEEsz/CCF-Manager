@@ -1,6 +1,7 @@
 package com.github.project_njust.ccf_manager.service;
 
 import com.github.project_njust.ccf_manager.UserType;
+import com.github.project_njust.ccf_manager.service.kt.CoroutinesService;
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +28,7 @@ public abstract class Service {
      * @return 将返回用会的json
      */
     @NotNull
-    public abstract JsonSection onRequest(@NotNull ISubmitData input);
+    public abstract IResponse onRequest(@NotNull ISubmitData input);
 
     @NotNull
     public UserType @NotNull [] getAllowTypes() {

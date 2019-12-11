@@ -1,10 +1,10 @@
 package com.github.project_njust.ccf_manager.servlet
 
 import com.github.project_njust.ccf_manager.ContextManager
-import com.github.project_njust.ccf_manager.service.CoroutinesService
+import com.github.project_njust.ccf_manager.service.kt.CoroutinesService
 import com.github.project_njust.ccf_manager.service.ExampleService
 import com.github.project_njust.ccf_manager.service.Service
-import com.github.project_njust.ccf_manager.service.SubmitData
+import com.github.project_njust.ccf_manager.service.kt.SubmitData
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
 import com.github.project_njust.ccf_manager.wrapper.json.MemorySection
 import kotlinx.coroutines.GlobalScope

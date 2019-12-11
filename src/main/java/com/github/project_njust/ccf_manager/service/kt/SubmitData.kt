@@ -1,6 +1,7 @@
-package com.github.project_njust.ccf_manager.service
+package com.github.project_njust.ccf_manager.service.kt
 
 import com.github.project_njust.ccf_manager.model.User
+import com.github.project_njust.ccf_manager.service.ISubmitData
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
 
 class SubmitData (
