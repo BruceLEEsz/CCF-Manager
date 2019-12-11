@@ -46,6 +46,8 @@ class DataServlet : HttpServlet() {
             resp.characterEncoding = ContextManager.getEncoding()
             val parms = MemorySection(data)
             val token = parms.getString("token")
+            TODO()
+
             val input = parms.getJsonSection("parms")!!
             val submitData = SubmitData(input)
             val result = withTimeoutOrNull(5000) {
@@ -58,8 +60,9 @@ class DataServlet : HttpServlet() {
             }
             val respone = JsonSection.createSection()
             respone.set("token", "test")
-            if (result != null)
+            if (result != null) {
                 respone.set("result", result)
+            }
             val writer = resp.writer
             if (result == null) {
                 writer.write("{\"status\":\"请求超时\"}")
