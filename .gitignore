@@ -5,3 +5,4 @@ target/*
 .project
 nbproject/*
 dokka/*
+src/main/webapp/vendors/*
