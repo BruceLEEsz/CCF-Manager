@@ -6,7 +6,7 @@ import com.github.project_njust.ccf_manager.wrapper.json.MemorySection
 class Response(status: IResponse.Status = IResponse.Status.SUCCESS) : MemorySection(), IResponse {
 
     init {
-        this.setStatus(status)
+        this.setStatus(status )
     }
 
     override fun setStatus(s: IResponse.Status) {
