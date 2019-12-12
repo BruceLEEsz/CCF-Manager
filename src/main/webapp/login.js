@@ -6,49 +6,36 @@ const app = new Vue({
         password: ""
     },
     methods: {
-        s_login() {
+        login() {
             console.log(this.username + this.password);
             axios({
                 url: "/Data/s_login",
                 method: "post",
                 Data: {
-                    username: this.username,
-                    password: this.password
+                    params:{
+                        username: this.username,
+                        password: this.password
+                    }
                 }
             }).then(rep => {
                 if (rep.data.status === "success") {
                     setCookie("token", rep.data.token);
                     alert("登陆成功");
-                    window.location.href = "src/main/webapp/s_home.html";
+                    const decodeToken = rep.data.token.fromBase64();
+                    let array = decodeToken.split(".");
+                    //json数据段中传入为student
+                    if (array[1].indexOf(student) !== -1) {
+                        window.location.href = "src/main/webapp/student_home.html"
+                    } else {//json数据段中传入为Administration
+                        window.location.href = ""
+                    }
                 } else {
                     //console.log(rep.data.reason)
                     alert("登陆失败" + rep.data.reason)
                 }
-            }, rep => {
-                alert("抱歉，网页当前不可用");
-            })
-        }
-        ,
-        a_login() {
-            console.log(this.username + this.password);
-            axios({
-                url: "/Data/a_login",
-                method: "post",
-                Data: {
-                    username: this.username,
-                    password: this.password
-                }
-            }).then(rep => {
-                if (rep.data.status === "success") {
-                    setCookie("token", rep.data.token);
-                    alert("登录成功");
-                    window.location.href = "src/main/webapp/a_home.html"
-                } else {
-                    alert("登录失败" + rep.data.reason)
-                }
-            }, rep => {
+            }, function () {
                 alert("抱歉，网页当前不可用");
             })
         }
     }
-})
+});
