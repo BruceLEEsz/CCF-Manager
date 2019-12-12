@@ -17,7 +17,7 @@ class Token(
         val userType: UserType,
         val exp: Long = System.currentTimeMillis() + 60L * 1000L,
         val iat: Long = System.currentTimeMillis(),
-        val jti: Long = Random.Default.nextLong()
+        val jti: Long = Random.nextLong()
 ) {
 
     constructor(user:User):this(user.uid, UserType.getType(user.type))
