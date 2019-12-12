@@ -12,7 +12,7 @@ const app = new Vue({
                 url: "/Data/s_login",
                 method: "post",
                 Data: {
-                    params{
+                    params:{
                         username: this.username,
                         password: this.password
                     }
@@ -24,7 +24,7 @@ const app = new Vue({
                     const decodeToken = rep.data.token.fromBase64();
                     let array = decodeToken.split(".");
                     //json数据段中传入为student
-                    if (array[1].indexOf(student) != -1) {
+                    if (array[1].indexOf(student) !== -1) {
                         window.location.href = "src/main/webapp/student_home.html"
                     } else {//json数据段中传入为Administration
                         window.location.href = ""
@@ -33,9 +33,9 @@ const app = new Vue({
                     //console.log(rep.data.reason)
                     alert("登陆失败" + rep.data.reason)
                 }
-            }, rep => {
+            }, function () {
                 alert("抱歉，网页当前不可用");
             })
         }
     }
-})
+});
