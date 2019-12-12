@@ -15,6 +15,8 @@
     <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Dropzone.js -->
+    <link href="vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
@@ -35,7 +37,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="student_home.html" class="site_title"><i class="fa fa-paw"></i> <span>CCF报名系统</span></a>
+                    <a href="admin_home.html" class="site_title"><i class="fa fa-paw"></i> <span>CCF报名系统</span></a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -58,15 +60,30 @@
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
                         <ul class="nav side-menu">
-                            <li><a href="student_home.html"><i class="fa fa-home"></i> 主页 </a>
+                            <li><a href="admin_home.html"><i class="fa fa-home"></i> 主页 </a>
                             </li>
-                            <li><a><i class="fa fa-desktop"></i> 报名系统 <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-edit"></i> 考试管理 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="student_apply.html">考试报名</a></li>
-                                    <li><a href="student_ifFree.html">免费资格查询</a></li>
+                                    <li><a href="admin_timeSet.html">设定报名时间</a></li>
+                                    <li><a href="admin_scoreLineSet.html">设定免费分数线</a></li>
+                                    <li><a href="admin_freeListManage.html">免费名单审核、生成与发布</a></li>
                                 </ul>
                             </li>
-                            <li><a href="student_grade.html"><i class="fa fa-bar-chart-o"></i> 成绩查询 </a>
+                            <li><a><i class="fa fa-edit"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="admin_sMessageUpload.html">学生信息上传</a></li>
+                                    <li><a href="admin_sGradeUpload.html">学生分数上传</a></li>
+                                    <li><a href="admin_freeQualificationSet.html">手动设置免费资格</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-sitemap"></i> 社团负责人入口 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="admin_applyListDownload.html">下载报名名单</a></li>
+                                    <li><a href="admin_competitionMessagePost.html">竞赛信息发布</a></li>
+                                    <li><a href="admin_freeQualificationCommit.html">提交免费资格</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="admin_gradeListDownload.html"><i class="fa fa-bar-chart-o"></i> 成绩报表查看 </a>
                             </li>
                         </ul>
                     </div>
@@ -160,7 +177,7 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>免费资格查询</h3>
+                        <h3>竞赛信息发布</h3>
                     </div>
 
                     <div class="title_right">
@@ -178,7 +195,6 @@
                 <div class="col-md-12 column">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>查询列表 </h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -197,25 +213,22 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>考试届数</th>
-                                    <th>竞赛信息</th>
-                                    <th>免费资格</th>
-                                    <th>团报码</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>19</td>
-                                    <td>CCF能力认证考试</td>
-                                    <td>{{confirm}}</td>
-                                    <td>{{code}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <br />
+                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >时间地点信息 </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="competition" class="form-control col-md-7 col-xs-12" placeholder=>
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-8">
+                                        <button type="submit" class="btn btn-success singup">发布</button>
+                                    </div>
+                                </div>
 
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -242,6 +255,8 @@
 <script src="vendors/fastclick/lib/fastclick.js"></script>
 <!-- NProgress -->
 <script src="vendors/nprogress/nprogress.js"></script>
+<!-- Dropzone.js -->
+<script src="vendors/dropzone/dist/min/dropzone.min.js"></script>
 <!-- Chart.js -->
 <script src="vendors/Chart.js/dist/Chart.min.js"></script>
 <!-- gauge.js -->
