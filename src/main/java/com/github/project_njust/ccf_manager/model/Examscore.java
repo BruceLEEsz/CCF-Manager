@@ -7,6 +7,19 @@ public class Examscore {
     private int examgrade;
     private String competition;
 
+    public Examscore() {
+    }
+
+    public Examscore(int uid, int examid, int confirm, int examgrade, String competition) {
+        this.uid = uid;
+        this.examid = examid;
+        this.confirm = confirm;
+        this.examgrade = examgrade;
+        this.competition = competition;
+    }
+
+
+
     public int getUid() {
 
         return uid;

@@ -2,10 +2,19 @@ package com.github.project_njust.ccf_manager.model;
 
 import java.util.Date;
 
-public class Examinformation {
+public class ExamInfo {
     private int examid;
     private int examscore;
     private Date examdate;
+
+    public ExamInfo() {
+    }
+
+    public ExamInfo(int examid, int examscore, Date examdate) {
+        this.examid = examid;
+        this.examscore = examscore;
+        this.examdate = examdate;
+    }
 
     public int getExamid() {
         return examid;
