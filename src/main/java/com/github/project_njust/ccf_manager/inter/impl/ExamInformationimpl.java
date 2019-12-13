@@ -5,10 +5,7 @@ import com.github.project_njust.ccf_manager.inter.ExamInformationinter;
 import com.github.project_njust.ccf_manager.model.Examinformation;
 import com.github.project_njust.ccf_manager.model.User;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class ExamInformationimpl implements ExamInformationinter {
@@ -72,7 +69,13 @@ public class ExamInformationimpl implements ExamInformationinter {
             String sql = "select * from examinformation where ExamID = ?";
             pst = (PreparedStatement) conn.prepareStatement(sql);
             pst.setInt(1, ExamId);
-            int rows = pst.executeUpdate();
+            ResultSet rows = pst.executeQuery();
+            if(rows.next()){
+                Examinformation ei = new Examinformation();
+                ei.setExamid(rows.getInt("ExamID"));
+
+                return ei;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -86,7 +89,8 @@ public class ExamInformationimpl implements ExamInformationinter {
         try {
             String sql = "select * from examinformation";
             pst = (PreparedStatement) conn.prepareStatement(sql);
-            int rows = pst.executeUpdate();
+            ResultSet rows = pst.executeQuery();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,8 +1,8 @@
 package com.github.project_njust.ccf_manager.inter;
 
-        import com.github.project_njust.ccf_manager.model.Examscore;
+import com.github.project_njust.ccf_manager.model.Examscore;
 
-        import java.util.List;
+import java.util.List;
 
 public interface ExamScoreinter {
     public int insertExamScore(Examscore examscore);

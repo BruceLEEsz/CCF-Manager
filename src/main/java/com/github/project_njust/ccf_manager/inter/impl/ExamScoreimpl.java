@@ -6,6 +6,7 @@ import com.github.project_njust.ccf_manager.model.Examscore;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -73,7 +74,7 @@ public class ExamScoreimpl implements ExamScoreinter {
             String sql = "select * from examscore where UID = ?";
             pst = (PreparedStatement) conn.prepareStatement(sql);
             pst.setInt(1, uid);
-            int rows = pst.executeUpdate();
+            ResultSet rows = pst.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,7 +88,7 @@ public class ExamScoreimpl implements ExamScoreinter {
         try {
             String sql = "select * from examscore";
             pst = (PreparedStatement) conn.prepareStatement(sql);
-            int rows = pst.executeUpdate();
+            ResultSet rows = pst.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -7,6 +7,7 @@ import com.github.project_njust.ccf_manager.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class Studentimpl implements Studentinter {
             String sql = "select * from student where StudentID = ?";
             pst = (PreparedStatement) conn.prepareStatement(sql);
             pst.setString(1, StudentID);
-            int rows = pst.executeUpdate();
+            ResultSet rows = pst.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,7 +86,7 @@ public class Studentimpl implements Studentinter {
         try {
             String sql = "select * from student";
             pst = (PreparedStatement) conn.prepareStatement(sql);
-            int rows = pst.executeUpdate();
+            ResultSet rows = pst.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }

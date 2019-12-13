@@ -6,7 +6,9 @@ import com.github.project_njust.ccf_manager.inter.Userinter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Userimpl implements Userinter {
@@ -55,6 +57,7 @@ public class Userimpl implements Userinter {
             pst = (PreparedStatement) conn.prepareStatement(sql);
             pst.setInt(1, uid);
             int rows = pst.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,7 +72,7 @@ public class Userimpl implements Userinter {
             String sql = "select * from user where UID = ?";
             pst = (PreparedStatement) conn.prepareStatement(sql);
             pst.setInt(1, uid);
-            int rows = pst.executeUpdate();
+            ResultSet rows = pst.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,7 +86,13 @@ public class Userimpl implements Userinter {
         try {
             String sql = "select * from user";
             pst = (PreparedStatement) conn.prepareStatement(sql);
-            int rows = pst.executeUpdate();
+            ResultSet rows = pst.executeQuery();
+            List<User> users = new ArrayList<>();
+            while(rows.next()){
+
+            }
+
+            return users;
         } catch (SQLException e) {
             e.printStackTrace();
         }
