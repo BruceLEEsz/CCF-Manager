@@ -18,7 +18,7 @@
 <web-app>
     <display-name>CCF</display-name>
     <welcome-file-list>
-        <welcome-file>/main.html</welcome-file>
+        <welcome-file>/login.html</welcome-file>
     </welcome-file-list>
     <context-param>
         <param-name>encoding</param-name>
