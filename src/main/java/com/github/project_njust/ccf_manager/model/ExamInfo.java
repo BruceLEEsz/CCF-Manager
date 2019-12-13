@@ -10,7 +10,7 @@ public class ExamInfo {
     public ExamInfo() {
     }
 
-    public ExamInfo(int examid, int examscore, Date examdate) {
+    public ExamInfo(int examid,int examscore, Date examdate) {
         this.examid = examid;
         this.examscore = examscore;
         this.examdate = examdate;
