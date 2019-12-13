@@ -2,18 +2,23 @@ package com.github.project_njust.ccf_manager.sql;
 
 import com.github.project_njust.ccf_manager.model.Examscore;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 public interface IExamScoreManager {
-    int insertExamScore(Examscore examscore);
+    int insertExamScore(@NotNull Examscore examscore);
 
-    int updateExamScore(Examscore examscore, int uid);
+    int updateExamScore(@NotNull Examscore examscore, int uid);
 
     int deleteExamScore(int uid);
 
+    @Nullable
     Examscore selectExamScoreById(int uid);
 
-    List<Examscore> selectAllExamScore(int examid);
+    @NotNull
+    List<@NotNull Examscore> selectAllExamScore(int examid);
 
 
 }
