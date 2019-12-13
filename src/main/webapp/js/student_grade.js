@@ -1,4 +1,3 @@
-
 const app = new Vue({
     el: "#scoresQuery",
     data: {
@@ -8,7 +7,7 @@ const app = new Vue({
         this.init()
     },
     methods: {
-        init() {
+        init: function () {
             axios({
                 url: "/Data/getScore",
                 method: "post",
@@ -16,13 +15,15 @@ const app = new Vue({
                     token: getCookie("token")
                 }
             }).then(rep => {
-                if (rep.token.status === "sucess") {
+                if (rep.token.status === "success") {
                     setCookie("token", rep.data.token);
-                    this.allScores=rep.data;
-                }else{
-                    alert("成绩加载失败");
+                    this.allScores = rep.data;
+                } else {
+                    alert("成绩加载失败" + rep.data.reason);
                 }
+            }, function () {
+                alert("抱歉，网页当前不可用");
             })
         }
     }
-})
+});
