@@ -2,19 +2,25 @@ package com.github.project_njust.ccf_manager.sql;
 
 import com.github.project_njust.ccf_manager.model.Student;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 public interface IStudentManager {
-    int insertStudent(Student record);
+    int insertStudent(@NotNull Student record);
 
-    int updateStudent(Student record, String StudentID);
+    int updateStudent(@NotNull Student record, String StudentID);
 
-    int deleteStudent(String StudentID);
+    int deleteStudent(@NotNull String StudentID);
 
-    Student selectStudentByStudentID(String StudentID);
+    @Nullable
+    Student selectStudentByStudentID(@NotNull String StudentID);
 
-    List<Student> selectStudents();
+    @NotNull
+    List<@NotNull Student> selectStudents();
 
+    @Nullable
     Student selectStudent(int uid);
 
 }
