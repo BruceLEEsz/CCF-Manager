@@ -22,6 +22,7 @@ public class ContextManager implements ServletContextListener {
     public void contextInitialized(ServletContextEvent evt) {
         servletContext = evt.getServletContext();
         FileManager.checkFolder();
+        SQLManager.init();
         TokenManager.init();
         FileUploadServlet.Companion.init();
         DataServlet.Companion.init();
