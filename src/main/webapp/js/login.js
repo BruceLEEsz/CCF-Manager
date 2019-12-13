@@ -9,10 +9,10 @@ const app = new Vue({
         login() {
             console.log(this.username + this.password);
             axios({
-                url: "/Data/s_login",
+                url: "/Data/login",
                 method: "post",
-                Data: {
-                    params:{
+                data: {
+                    params: {
                         username: this.username,
                         password: this.password
                     }
@@ -21,13 +21,14 @@ const app = new Vue({
                 if (rep.data.status === "success") {
                     setCookie("token", rep.data.token);
                     alert("登陆成功");
-                    const decodeToken = rep.data.token.fromBase64();
-                    let array = decodeToken.split(".");
+
+                    let array = rep.data.token.split('.');
                     //json数据段中传入为student
-                    if (array[1].indexOf(student) !== -1) {
-                        window.location.href = "src/main/webapp/student_home.html"
+                    const decodeToken = array[1].fromBase64();
+                    if (decodeToken.userType === "STUDENT") {
+                        window.location.href = "../student_home.html"
                     } else {//json数据段中传入为Administration
-                        window.location.href = ""
+                        window.location.href = "../admin_home.html"
                     }
                 } else {
                     //console.log(rep.data.reason)
