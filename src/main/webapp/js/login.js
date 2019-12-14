@@ -9,10 +9,10 @@ const app = new Vue({
         login() {
             console.log(this.username + this.password);
             axios({
-                url: "/Data/s_login",
+                url: "/Data/login",
                 method: "post",
-                Data: {
-                    params:{
+                data: {
+                    params: {
                         username: this.username,
                         password: this.password
                     }
@@ -27,7 +27,7 @@ const app = new Vue({
                     if (array[1].indexOf(student) !== -1) {
                         window.location.href = "src/main/webapp/student_home.html"
                     } else {//json数据段中传入为Administration
-                        window.location.href = ""
+                        window.location.href = "src/main/webapp/admin_home.html"
                     }
                 } else {
                     //console.log(rep.data.reason)
