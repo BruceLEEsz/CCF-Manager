@@ -19,6 +19,14 @@ public class User {
         this.type = type;
     }
 
+    public User() {
+
+    }
+
+    public User(int uid, String name, int type) {
+
+    }
+
     public UserType getUserType() {
         return UserType.getType(this.type);
     }
