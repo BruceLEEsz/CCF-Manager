@@ -1,29 +1,27 @@
 package com.github.project_njust.ccf_manager
 
+import com.github.project_njust.ccf_manager.sql.IExamInfoManager
+import com.github.project_njust.ccf_manager.sql.IExamScoreManager
+import com.github.project_njust.ccf_manager.sql.IStudentManager
+import com.github.project_njust.ccf_manager.sql.IUserManager
 import com.github.project_njust.ccf_manager.wrapper.json.MemorySection
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import org.apache.log4j.Logger
 import java.io.File
 import java.sql.Connection
-import java.sql.SQLException
-import kotlin.coroutines.coroutineContext
 
 object SQLManager {
     private lateinit var connectPool: HikariDataSource
     private var init = false
 
     @JvmStatic
-    fun getConnection():Connection{
+    fun getConnection(): Connection {
         return connectPool.connection
     }
 
     @JvmStatic
-    fun evictConnection(conn:Connection){
+    fun evictConnection(conn: Connection) {
         connectPool.evictConnection(conn)
     }
 
@@ -70,5 +68,25 @@ object SQLManager {
         } catch (t: Throwable) {
             Logger.getLogger(SQLManager::class.java).error("初始化数据库中发生错误", t)
         }
+    }
+
+    @JvmStatic
+    fun getExamInfoManager(): IExamInfoManager {
+        TODO()
+    }
+
+    @JvmStatic
+    fun getExamScoreManager(): IExamScoreManager {
+        TODO()
+    }
+
+    @JvmStatic
+    fun getStudentManager(): IStudentManager {
+        TODO()
+    }
+
+    @JvmStatic
+    fun getUserManager(): IUserManager {
+        TODO()
     }
 }
