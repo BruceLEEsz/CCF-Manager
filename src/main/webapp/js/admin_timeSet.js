@@ -17,8 +17,10 @@ const app = new Vue({
                 methods: "POST",
                 data: {
                     token: getCookie("token"),
-                    signUpTime: this.signUpTime,
-                    scoreLine: this.scoreLine
+                    params:{
+                        signUpTime: this.signUpTime,
+                        scoreLine: this.scoreLine
+                    }
                 }
             }).then(function (rep) {
                 if (rep.data.status === 'SUCCESS') {
