@@ -17,7 +17,7 @@ const app = new Vue({
                         setCookie("token", rep.data.token);
                         let UUID = rep.data.UUID;
                         axios({
-                            url: "/Data/updataFinalList",
+                            url: "/Data/uploadFinalList",
                             method: "POST",
                             data: {
                                 token: getCookie("token"),
