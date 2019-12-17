@@ -1,30 +1,29 @@
 package com.github.project_njust.ccf_manager.model;
 
 import com.github.project_njust.ccf_manager.UserType;
+import com.github.project_njust.ccf_manager.wrapper.json.JsonSection;
 
 public class User {
-    private int uid;
+    private final int uid;
     private String password;
     private String name;
     private int type;
+    private JsonSection data;
 
     public User(int uid) {
         this.uid = uid;
     }
 
-    public User(int uid, String password, String name, int type) {
+    public User(int uid, String password, String name, int type, JsonSection data) {
         this.uid = uid;
         this.password = password;
         this.name = name;
         this.type = type;
+        this.data = data;
     }
 
-    public User() {
-
-    }
-
-    public User(int uid, String name, int type) {
-
+    public JsonSection getData() {
+        return data;
     }
 
     public UserType getUserType() {
@@ -37,10 +36,6 @@ public class User {
 
     public int getUid() {
         return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
     }
 
     public String getPassword() {
