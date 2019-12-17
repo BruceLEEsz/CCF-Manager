@@ -1,7 +1,9 @@
-package com.github.project_njust.ccf_manager.sql;
+package com.github.project_njust.ccf_manager.sql.impl;
 
 import com.github.project_njust.ccf_manager.SQLManager;
 import com.github.project_njust.ccf_manager.model.ExamInfo;
+import com.github.project_njust.ccf_manager.sql.IExamInfoManager;
+
 import java.sql.*;
 
 public class ExamInfoManagerimpl implements IExamInfoManager {

@@ -1,7 +1,9 @@
-package com.github.project_njust.ccf_manager.sql;
+package com.github.project_njust.ccf_manager.sql.impl;
 
 import com.github.project_njust.ccf_manager.SQLManager;
 import com.github.project_njust.ccf_manager.model.Examscore;
+import com.github.project_njust.ccf_manager.sql.IExamScoreManager;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
