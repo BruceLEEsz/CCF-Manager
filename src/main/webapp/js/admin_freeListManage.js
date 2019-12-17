@@ -42,12 +42,13 @@ const app = new Vue({
             }
         }).then(function (rep) {
             if (rep.status === "SUCCESS") {
+                setCookie("token", rep.data.token);
                 this.students = rep.data.students;
             } else {
                 alert("获取报名名单失败" + rep.data.reason);
             }
         }, function () {
-            alert("抱歉，服务当前不可用");
+            alert("抱歉，服务器当前不可用");
         })
     }
 });
