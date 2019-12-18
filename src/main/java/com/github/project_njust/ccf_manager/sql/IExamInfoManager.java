@@ -17,6 +17,9 @@ public interface IExamInfoManager {
      */
     @NotNull ExamInfo createExamInformation(int score, Date date);
 
+    @Nullable ExamInfo getLastInfo();
+
+
     /**
      * 更新一个考试信息
      * @param record 要更新的考试信息
