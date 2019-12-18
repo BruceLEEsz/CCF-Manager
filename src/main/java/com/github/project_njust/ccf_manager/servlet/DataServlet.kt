@@ -1,12 +1,17 @@
 package com.github.project_njust.ccf_manager.servlet
 
 import com.github.project_njust.ccf_manager.ContextManager
+import com.github.project_njust.ccf_manager.SQLManager
+import com.github.project_njust.ccf_manager.UserType
+import com.github.project_njust.ccf_manager.model.User
 import com.github.project_njust.ccf_manager.service.kt.CoroutinesService
 import com.github.project_njust.ccf_manager.service.ExampleService
+import com.github.project_njust.ccf_manager.service.IResponse
 import com.github.project_njust.ccf_manager.service.Service
 import com.github.project_njust.ccf_manager.service.kt.SubmitData
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
 import com.github.project_njust.ccf_manager.wrapper.json.MemorySection
+import com.github.project_njust.ccf_manager.wrapper.token.TokenManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
@@ -45,11 +50,34 @@ class DataServlet : HttpServlet() {
             val resp = async.response
             resp.characterEncoding = ContextManager.getEncoding()
             val parms = MemorySection(data)
-            val token = parms.getString("token")
-            TODO()
-
+            val t = parms.getString("token")
+            val token = t?.let { TokenManager.deToken(it) }
+            if (UserType.TOURISTS !in service.allowTypes) {
+                if (token == null) {
+                    val res = IResponse.createIResponse(IResponse.Status.REFUSE)
+                    res["reason"] = "权限不足"
+                    val writer = resp.writer
+                    writer.write(res.toString())
+                    async.complete()
+                    return@launch
+                }
+                if (token.userType !in service.allowTypes) {
+                    val res = IResponse.createIResponse(IResponse.Status.REFUSE)
+                    res["reason"] = "权限不足或权限不正确"
+                    val writer = resp.writer
+                    writer.write(res.toString())
+                    async.complete()
+                    return@launch
+                }
+            }
             val input = parms.getJsonSection("parms")!!
-            val submitData = SubmitData(input)
+            val user: User?
+            if (token?.uid != null) {
+                user = SQLManager.getUserManager().selectUserById(token?.uid)
+            } else {
+                user = null
+            }
+            val submitData = SubmitData(input, user)
             val result = withTimeoutOrNull(5000) {
                 if (service.isCoroutines) {
                     val cs = service as CoroutinesService
@@ -58,16 +86,14 @@ class DataServlet : HttpServlet() {
                     service.onRequest(submitData)
                 }
             }
-            val respone = JsonSection.createSection()
-            respone.set("token", "test")
-            if (result != null) {
-                respone.set("result", result)
-            }
             val writer = resp.writer
             if (result == null) {
                 writer.write("{\"status\":\"请求超时\"}")
             } else {
-                writer.write(respone.toString())
+                if (token != null) {
+                    result.set("token", token.toTokenString())
+                }
+                writer.write(result.toString())
             }
             async.complete()
         }
