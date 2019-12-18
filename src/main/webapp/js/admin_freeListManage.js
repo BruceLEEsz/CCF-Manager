@@ -35,7 +35,7 @@ const app = new Vue({
     },
     created: function () {
         axios({
-            url: "/Data/getFreeList",
+            url: "/Data/getApplyList",
             method: "POST",
             data: {
                 token: getCookie("token")
