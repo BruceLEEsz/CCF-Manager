@@ -4,7 +4,7 @@ const app = new Vue({
         examscore: ""
     },
     methods: {
-        set() {
+        set: function () {
             axios({
                 url: "/Data/setScoreLine",
                 method: "post",

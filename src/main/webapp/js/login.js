@@ -6,7 +6,7 @@ const app = new Vue({
         password: ""
     },
     methods: {
-        login() {
+        login: function () {
             console.log(this.username + this.password);
             axios({
                 url: "/Data/login",

@@ -25,6 +25,23 @@ object ExamInfoManagerImpl : IExamInfoManager {
         return@runBlocking getLatestInfo()
     }
 
+    override fun getLastInfo(): ExamInfo? {
+        SQLManager.operateConnection {
+            val ps = this.prepareStatement("SELECT * FROM ExamInformation WHERE EXAMID IN (SELECT MAX(EXAMID) FROM ExamInformation)")
+            val rs = ps.executeQuery()
+            if (rs.next()) {
+                return ExamInfo(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getDate(3),
+                        rs.getString(4),
+                        JsonSection.readFromJson(rs.getString(5))
+                )
+            }
+        }
+        return null
+    }
+
     private suspend fun getLatestInfo(): ExamInfo {
         return SQLManager.asyncDeferred {
             val ps = this.prepareStatement("SELECT * FROM ExamInformation WHERE EXAMID IN (SELECT MAX(EXAMID) FROM ExamInformation)")

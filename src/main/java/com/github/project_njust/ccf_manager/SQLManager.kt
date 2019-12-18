@@ -1,9 +1,7 @@
 package com.github.project_njust.ccf_manager
 
-import com.github.project_njust.ccf_manager.sql.IExamInfoManager
-import com.github.project_njust.ccf_manager.sql.IExamScoreManager
-import com.github.project_njust.ccf_manager.sql.IStudentManager
-import com.github.project_njust.ccf_manager.sql.IUserManager
+import com.github.project_njust.ccf_manager.sql.*
+import com.github.project_njust.ccf_manager.sql.impl.*
 import com.github.project_njust.ccf_manager.wrapper.json.MemorySection
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -201,22 +199,12 @@ CREATE VIEW UserName (NAME, UID) AS (
     }
 
     @JvmStatic
-    fun getExamInfoManager(): IExamInfoManager {
-        TODO()
-    }
+    fun getExamInfoManager(): IExamInfoManager = ExamInfoManagerImpl
+    @JvmStatic
+    fun getExamScoreManager(): IExamScoreManager = ExamScoreManagerImpl
 
     @JvmStatic
-    fun getExamScoreManager(): IExamScoreManager {
-        TODO()
-    }
-
+    fun getStudentManager(): IStudentManager = StudentManagerImpl
     @JvmStatic
-    fun getStudentManager(): IStudentManager {
-        TODO()
-    }
-
-    @JvmStatic
-    fun getUserManager(): IUserManager {
-        TODO()
-    }
+    fun getUserManager(): IUserManager = UserManagerImpl
 }

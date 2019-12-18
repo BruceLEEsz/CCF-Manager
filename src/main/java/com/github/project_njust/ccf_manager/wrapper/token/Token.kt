@@ -49,12 +49,12 @@ fun String.deBase64(): String {
 
 val instance = MessageDigest.getInstance("SHA-256")
 fun String.hashSHA256(): String {
-    val ba = instance.digest("$this-cmc".toByteArray())
+    val ba = instance.digest("$this-ccf".toByteArray())
     return byteArrayToHexString(ba)
 }
 
 fun String.hashSHA256WithSalt(exsalt:String, salt: String = TokenManager.Signature): String {
-    val ba = instance.digest("$exsalt-$this-$salt-cmc".toByteArray())
+    val ba = instance.digest("$exsalt-$this-$salt-ccf".toByteArray())
     return byteArrayToHexString(ba)
 }
 
