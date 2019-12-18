@@ -4,9 +4,9 @@ const app = new Vue({
             examId: "19"
         },
         methods: {
-            signUp() {
+            signUp: function () {
                 axios({
-                    url: "Data/signUp",
+                    url: "/Data/signUp",
                     method: "POST",
                     data: {
                         token: getCookie("token")
@@ -25,7 +25,7 @@ const app = new Vue({
         },
         created: function () {
             axios({
-                url: "Data/getExamId",
+                url: "/Data/getExamId",
                 method: "POST",
                 data: {
                     token: getCookie("token")

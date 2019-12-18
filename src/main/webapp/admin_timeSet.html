@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -29,6 +29,11 @@
 
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
+
+    <!-- vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 </head>
 
 <body class="nav-md">
@@ -54,7 +59,7 @@
                 </div>
                 <!-- /menu profile quick info -->
 
-                <br />
+                <br/>
 
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -64,16 +69,16 @@
                             </li>
                             <li><a><i class="fa fa-edit"></i> 考试管理 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="admin_timeSet.html">设定报名时间</a></li>
+                                    <li><a href="admin_timeSet.html">添加选拔信息</a></li>
                                     <li><a href="admin_scoreLineSet.html">设定免费分数线</a></li>
-                                    <li><a href="admin_freeListManage.html">免费名单审核、生成与发布</a></li>
+                                    <li><a href="admin_freeListManage.html">免费名单管理</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-edit"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="admin_sMessageUpload.html">学生信息上传</a></li>
                                     <li><a href="admin_sGradeUpload.html">学生分数上传</a></li>
-                                    <li><a href="admin_freeQualificationSet.html">手动设置免费资格</a></li>
+
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-sitemap"></i> 社团负责人入口 <span class="fa fa-chevron-down"></span></a>
@@ -119,7 +124,8 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
                                 <img src="images/img1.png" alt="">？？？
                                 <span class=" fa fa-angle-down"></span>
                             </a>
@@ -140,7 +146,8 @@
                         </li>
 
                         <li role="presentation" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
+                               aria-expanded="false">
                                 <i class="fa fa-envelope-o"></i>
                                 <span class="badge bg-green">1</span>
                             </a>
@@ -177,7 +184,7 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>报名时间设置</h3>
+                        <h3>添加选拔信息</h3>
                     </div>
 
                     <div class="title_right">
@@ -194,13 +201,14 @@
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
+                        <div class="x_panel" id="VipSetUp">
                             <div class="x_title">
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                           aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="#">设置1</a>
                                             </li>
@@ -212,46 +220,58 @@
                                     </li>
                                 </ul>
                                 <div class="clearfix"></div>
-                            </div><div class="row" id="VipSetUp" style="margin-top:5px;">
-                            <small>暂时还不会写</small>
-                            <br />
-                            <br />
-                            <div class="col-md-6" style="padding:0;">
-                                <div class="input-group date form_date" style="margin-left:5%;width:96%" id="bengindate" data-data="" data-date-format="yyyy-MM-dd">
-                                    <span class="input-group-addon">启始日期</span>
-                                    <input class="form-control" id="benginText" type="text" value="" readonly>
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                            <div class="row" style="margin-top:5px;">
+                                <br/>
+                                <br/>
+                                <div class=" col-md-6" style="padding:0;">
+                                    <div class="input-group date form_date" style="margin-left:5%;width:96%"
+                                         id="bengindate" data-data="" data-date-format="yyyy-MM-dd">
+                                        <span class="input-group-addon">截止日期</span>
+                                        <input class="form-control" id="benginText" v-model="signUpTime" type="date">
+                                        <span class="btn input-group-addon"><span class="glyphicon glyphicon-remove"
+                                                                                  v-on:click="resetSignUpTime"></span></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding:0;">
+                                    <div class="input-group date form_date"
+                                         style="margin-left:5%;width:90%"
+                                         id="enddate" data-data="" data-date-format="yyyy-MM-dd">
+                                        <span class="input-group-addon">免费分数线</span>
+                                        <input class="form-control" type="text" id="endText" v-model="scoreLine">
+                                        <span class="btn input-group-addon"><span class="glyphicon glyphicon-remove"
+                                                                                  v-on:click="resetScoreLine"></span></span>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-6" style="padding:0;">
-                                <div class="input-group date form_date" style="margin-left:5%;width:90%;" id="enddate" data-data="" data-date-format="yyyy-MM-dd">
-                                    <span class="input-group-addon">截止日期</span>
-                                    <input class="form-control" type="text" id="endText" value="" readonly >
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            <div class="form-group">
+                                <hr/>
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <button type="submit" class="btn btn-block btn-success singup" v-on:click="addExam">
+                                        新增选拔信息
+                                    </button>
                                 </div>
-                                <br />
-                                <br />
+                                <br/>
+                                <br/>
                             </div>
-                        </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-            <div class="pull-right">
-                CCF免费报名系统 by <a href="http://www.njust.edu.cn/">njust</a>
-            </div>
-            <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
     </div>
+</div>
+<!-- /page content -->
+
+<!-- footer content -->
+<footer>
+    <div class="pull-right">
+        CCF免费报名系统 by <a href="http://www.njust.edu.cn/">njust</a>
+    </div>
+    <div class="clearfix"></div>
+</footer>
+<!-- /footer content -->
+</div>
 </div>
 
 <!-- jQuery -->
@@ -297,5 +317,7 @@
 <!-- Custom Theme Scripts -->
 <script src="build/js/custom.min.js"></script>
 
+<script src="js/cookie.js" type="text/javascript"></script>
+<script src="js/admin_timeSet.js" type="text/javascript"></script>
 </body>
 </html>

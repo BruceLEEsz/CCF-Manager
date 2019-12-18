@@ -7,16 +7,11 @@ const app = new Vue({
     methods: {
         updata() {
             this.formData.append('userfile', document.getElementById('file').files[0]);
-            this.formData.append('token', "v1");
+            this.formData.append('token', getCookie("token"));
             axios({
                 url: '/File/upload',
                 method: 'POST',
-                Data: {
-                    token: getCookie("token"),
-                    params: {
-                        formData: this.formData
-                    }
-                }
+                data: formData
             }).then(function (rep) {
                 if (rep.data.stauts === "success") {
                     setCookie("token", rep.data.token);

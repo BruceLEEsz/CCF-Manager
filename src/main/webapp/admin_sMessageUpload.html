@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
     <script src="js/cookie.js"></script>
+
     <title>CCF免费报名系统 | </title>
 
     <!-- Bootstrap -->
@@ -67,16 +69,16 @@
                             </li>
                             <li><a><i class="fa fa-edit"></i> 考试管理 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="admin_timeSet.html">设定报名时间</a></li>
+                                    <li><a href="admin_timeSet.html">添加选拔信息</a></li>
                                     <li><a href="admin_scoreLineSet.html">设定免费分数线</a></li>
-                                    <li><a href="admin_freeListManage.html">免费名单审核、生成与发布</a></li>
+                                    <li><a href="admin_freeListManage.html">免费名单管理</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-edit"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="admin_sMessageUpload.html">学生信息上传</a></li>
                                     <li><a href="admin_sGradeUpload.html">学生分数上传</a></li>
-                                    <li><a href="admin_freeQualificationSet.html">手动设置免费资格</a></li>
+
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-sitemap"></i> 社团负责人入口 <span class="fa fa-chevron-down"></span></a>
@@ -218,13 +220,16 @@
                             </div>
                             <div id="upload" class="x_content">
                                 <p></p>
-                                <form action="/File/uploadStudentInfo" class="dropzone">
-                                    <div class="am-text-success dz-message">
-                                        <br />
-                                        <br />
-                                        将文件拖拽到此处<br>或点此打开文件管理器选择文件
-                                    </div>
-                                </form>
+<!--                                <form action="/File/uploadStudentInfo" class="dropzone">-->
+<!--                                    <div class="am-text-success dz-message">-->
+<!--                                        <br />-->
+<!--                                        <br />-->
+<!--                                        将文件拖拽到此处<br>或点此打开文件管理器选择文件-->
+<!--                                    </div>-->
+<!--                                </form>-->
+                                <input class="form-group" type="file" id="sMessage">
+                                <br/>
+                                <button type="button" class="btn btn-success" v-on:click="upload">上传</button>
                                 <br />
                                 <br />
                                 <br />
@@ -290,6 +295,7 @@
 
 <!-- Custom Theme Scripts -->
 <script src="build/js/custom.min.js"></script>
-<script src="js/upload.js" type="text/javascript"></script>
+
+<script src="js/admin_sMessageUpload.js"></script>
 </body>
 </html>

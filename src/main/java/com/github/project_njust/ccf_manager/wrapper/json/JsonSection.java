@@ -49,6 +49,9 @@ public interface JsonSection {
     @NotNull
     JsonObject toJsonObject();
 
+    @Override
+    String toString();
+
     @Nullable
     public static JsonSection readFromJson(@NotNull String json) {
         return new MemorySection(json);
