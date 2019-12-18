@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="js/cookie.js"></script>
     <title>CCF免费报名系统 | </title>
 
     <!-- Bootstrap -->
@@ -213,8 +216,9 @@
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="x_content">
+                            <div id="upload" class="x_content">
                                 <p></p>
+                                <!--
                                 <form action="/File/updataStudentScore" class="dropzone">
                                     <div class="am-text-success dz-message">
                                         <br />
@@ -222,6 +226,10 @@
                                         将文件拖拽到此处<br>或点此打开文件管理器选择文件
                                     </div>
                                 </form>
+                                -->
+                                <input class="form-group" type="file" id="sGrade">
+                                <br/>
+                                <button type="button" class="btn btn-success" v-on:click="upload">上传</button>
                                 <br />
                                 <br />
                                 <br />
@@ -287,6 +295,7 @@
 
 <!-- Custom Theme Scripts -->
 <script src="build/js/custom.min.js"></script>
-
+<script src="js/cookie.js"></script>
+<script src="js/admin_sGradeUpload.js"></script>
 </body>
 </html>
