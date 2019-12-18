@@ -23,7 +23,7 @@ const app = new Vue({
                     alert("登陆成功");
                     let array = rep.data.token.split('.');
                     //json数据段中传入为student
-                    const decodeToken = array[1].fromBase64();
+                    const decodeToken = Base64.decode(array[1]);
                     if (decodeToken.userType === "STUDENT") {
                         window.location.href = "../student_home.html"
                     } else {//json数据段中传入为Administration
