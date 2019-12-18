@@ -2,13 +2,15 @@ package com.github.project_njust.ccf_manager.service.impl;
 
 import com.github.project_njust.ccf_manager.SQLManager;
 import com.github.project_njust.ccf_manager.UserType;
-import com.github.project_njust.ccf_manager.model.Examscore;
+import com.github.project_njust.ccf_manager.model.ExamInfo;
+import com.github.project_njust.ccf_manager.model.ExamScore;
 import com.github.project_njust.ccf_manager.model.Student;
 import com.github.project_njust.ccf_manager.model.User;
 import com.github.project_njust.ccf_manager.service.IResponse;
 import com.github.project_njust.ccf_manager.service.ISubmitData;
 import com.github.project_njust.ccf_manager.service.Service;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class SetQualification extends Service {
     public SetQualification(){
@@ -17,27 +19,21 @@ public class SetQualification extends Service {
 
     @Override
     public @NotNull IResponse onRequest(@NotNull ISubmitData input) {
-        String username = input.getData().getString("username");
-        Student student = SQLManager.getStudentManager().selectStudentByStudentID(username);
+        String studentid = input.getData().getString("studentid");
+        Student student = SQLManager.getStudentManager().selectStudentByStudentID(studentid);
         if (student == null) {
                 IResponse res = IResponse.createIResponse(IResponse.Status.ERROR);
                 res.set("reason", "找不到学生信息");
                 return res;
         }
 
-        User us = SQLManager.getUserManager().selectUserByName(username);
-        if(us==null){
-            IResponse res =IResponse.createIResponse(IResponse.Status.ERROR);
-            res.set("reason","数据库异常");
-            return res;
-        }
-        int uid = us.getUid();
+        ExamInfo examInfo =SQLManager.getExamInfoManager().getLastInfo();
+        int uid = student.getUid();
+        int examid = examInfo.getExamid();
 
-        Examscore examscore = new Examscore();
-        examscore.setConfirm(1);
-        examscore.setUid(uid);
-        SQLManager.getExamScoreManager().updateExamScore(examscore,uid);
-
+        @Nullable ExamScore examscore = SQLManager.getExamScoreManager().selectExamScore(uid,examid);
+        examscore.setConfirm(true);
+        SQLManager.getExamScoreManager().updateExamScore(examscore);
 
         IResponse res = IResponse.createIResponse(IResponse.Status.SUCCESS);
         return res;

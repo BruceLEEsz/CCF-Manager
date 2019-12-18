@@ -20,7 +20,7 @@ public class Login extends Service {
     IResponse onRequest(@NotNull ISubmitData input) {
         String username=input.getData().getString("username");
         String password=input.getData().getString("password");
-        User us = SQLManager.getUserManager().selectUserByName(username);
+        User us = SQLManager.getUserManager().selectUserById(uid);
         if(us==null){
             Student student = SQLManager.getStudentManager().selectStudentByStudentID(username);
             if(student==null){
