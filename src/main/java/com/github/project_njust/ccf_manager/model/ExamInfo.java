@@ -23,6 +23,10 @@ public class ExamInfo {
         return code;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public JsonSection getData() {
         return data;
     }

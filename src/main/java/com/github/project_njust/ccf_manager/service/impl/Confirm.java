@@ -21,15 +21,18 @@ public class Confirm extends Service {
     public @NotNull IResponse onRequest(@NotNull ISubmitData input) {
         User us = input.getUser();
         Integer uid = us.getUid();
+        ExamInfo examInfo=SQLManager.getExamInfoManager().getLastInfo();
+        if (examInfo==null){
+            IResponse res=IResponse.createIResponse(IResponse.Status.ERROR);
+            res.set("reason","数据库异常");
+        }
         if(uid==null){
             IResponse res =IResponse.createIResponse(IResponse.Status.ERROR);
             res.set("reason","系统异常");
             return res;
         }
-        Integer examid=0;
-        ExamScore examScore=SQLManager.getExamScoreManager().selectExamScore(uid,examid);
+        ExamScore examScore=SQLManager.getExamScoreManager().selectExamScore(uid,examInfo.getExamid());
         Boolean confirm=examScore.getConfirm();
-        ExamInfo examInfo=SQLManager.getExamInfoManager().selectExamInformationByExamId(examid);
         String code=examInfo.getCode();
         IResponse res =IResponse.createIResponse(IResponse.Status.SUCCESS);
         res.set("confirm",confirm);

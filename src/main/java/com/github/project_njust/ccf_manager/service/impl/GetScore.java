@@ -29,8 +29,9 @@ public class GetScore extends Service {
             return res;
         }
         List<ExamScore> exam = SQLManager.getExamScoreManager().selectExamScoreByUser(uid);
+
         if (exam == null) {
-            IResponse res = IResponse.createIResponse(IResponse.Status.REFUSE);
+            IResponse res = IResponse.createIResponse(IResponse.Status.ERROR);
             res.set("reason", "未参加过考试");
             return res;
         } else {
