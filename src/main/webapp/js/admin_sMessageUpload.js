@@ -6,7 +6,7 @@ const app = new Vue({
     },
     methods: {
         upload: function () {
-            this.formData.append('userfile', document.getElementById("sMessage").files[0]);
+            this.formData.append('userfile', document.getElementById("i-file").files[0]);
             this.formData.append("token", getCookie("token"));
             axios({
                 url: "/File/upload",
