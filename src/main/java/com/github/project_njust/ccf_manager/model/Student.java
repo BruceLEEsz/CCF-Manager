@@ -3,13 +3,10 @@ package com.github.project_njust.ccf_manager.model;
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection;
 
 public class Student {
-    private String studentId;
+    private final String studentId;
     private int uid = -1;
     private JsonSection data;
     private String identitycard;
-
-    public Student() {
-    }
 
     public Student(String studentId, JsonSection data, String identitycard) {
         this.studentId = studentId;
@@ -34,10 +31,6 @@ public class Student {
 
     public boolean hasUid(){
         return this.uid != -1;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
     }
 
     public int getUid() {
