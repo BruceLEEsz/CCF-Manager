@@ -2,7 +2,9 @@ package com.github.project_njust.ccf_manager.servlet
 
 import com.github.project_njust.ccf_manager.ContextManager
 import com.github.project_njust.ccf_manager.FileManager
+import com.github.project_njust.ccf_manager.service.IResponse
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
+import com.github.project_njust.ccf_manager.wrapper.token.TokenManager
 import org.apache.commons.fileupload.FileItem
 import org.apache.commons.fileupload.FileItemFactory
 import org.apache.commons.fileupload.ProgressListener
@@ -35,6 +37,12 @@ class FileUploadServlet : HttpServlet() {
         }
 
         fun init() {
+        }
+
+        fun createCacheFile():Pair<UUID,File>{
+            val uuid = UUID.randomUUID()
+            val file = File(FileManager.tempFilesFolder, "$uuid")
+            return uuid to file
         }
     }
 
@@ -96,10 +104,32 @@ class FileUploadServlet : HttpServlet() {
             }
         }
         val token = forms.find { it.name == "token" }
-        val result = JsonSection.createSection()
-        if(token == null){
-            result[""]
+        val result = IResponse.createIResponse(IResponse.Status.SUCCESS)
+        if (token == null) {
+            result.setStatus(IResponse.Status.REFUSE)
+        } else {
+            val t = token.getString("utf-8")
+            val token = TokenManager.deToken(t)
+            if (token == null) {
+                result.setStatus(IResponse.Status.REFUSE)
+            } else {
+                result.set("token", token.toTokenString())
+                if (files.isEmpty()) {
+                    result.setStatus(IResponse.Status.ERROR)
+                    result["reason"] = "未找到上传的文件"
+                } else {
+                    val uuid = parseFile(files.first())
+                    if (uuid == null) {
+                        result.setStatus(IResponse.Status.ERROR)
+                        result["reason"] = "上传失败"
+                    } else {
+                        result["UUID"] = uuid.toString()
+                    }
+                }
+            }
         }
-
+        resp.characterEncoding = ContextManager.getEncoding()
+        resp.setHeader("Content-type", "application/json;charset=UTF-8");
+        resp.writer.write(result.toString())
     }
 }
