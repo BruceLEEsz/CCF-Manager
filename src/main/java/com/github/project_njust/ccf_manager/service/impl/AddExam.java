@@ -11,9 +11,12 @@ import com.github.project_njust.ccf_manager.wrapper.json.JsonSection;
 import org.jetbrains.annotations.NotNull;
 
 import javax.xml.crypto.Data;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class AddExam extends Service {
     public AddExam() {
@@ -22,29 +25,35 @@ public class AddExam extends Service {
 
     @Override
     public @NotNull IResponse onRequest(@NotNull ISubmitData input) {
-        String signUpTime=input.getData().getString("signUpTime");
-        Integer scoreLine=input.getData().getInt("scroeLine");
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        ParsePosition pos = new ParsePosition(0);
-        Date strtodate = formatter.parse(signUpTime, pos);
-        java.sql.Date sqlDate=new java.sql.Date(strtodate.getTime());
+        String signUpTime = input.getData().getString("signUpTime");//报名时间
+        int scoreLine = input.getData().getInt("scroeLine");//分数线
 
-        User us = input.getUser();
-        String name = us.getName();
-        if(name==null){
-            IResponse res =IResponse.createIResponse(IResponse.Status.ERROR);
-            res.set("reason","系统异常");
-            return res;
+        DateFormat dateFormat;
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        dateFormat.setLenient(false);
+        Date timeDate = null;
+        try {
+            timeDate = dateFormat.parse(signUpTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        java.sql.Date dateTime = new java.sql.Date(timeDate.getTime());//String转Date
 
-        ExamInfo examInfo=new ExamInfo();
-        examInfo.setExamscore(scoreLine);
-        int sql = SQLManager.getExamInfoManager().createExamInformation(scoreLine,);
-        if(sql==-1){
+        //User us = input.getUser();
+        //String name = us.getName();
+        //if(name==null){
+        //    IResponse res =IResponse.createIResponse(IResponse.Status.ERROR);
+        //   res.set("reason","系统异常");
+        //    return res;
+        //}
+
+
+        ExamInfo examInformation = SQLManager.getExamInfoManager().createExamInformation(scoreLine, dateTime);
+        if(examInformation==null){
             IResponse res =IResponse.createIResponse(IResponse.Status.ERROR);
             res.set("reason","数据库异常");
             return res;
-        }
+        }//创建
 
         IResponse res =IResponse.createIResponse(IResponse.Status.SUCCESS);
         return res ;

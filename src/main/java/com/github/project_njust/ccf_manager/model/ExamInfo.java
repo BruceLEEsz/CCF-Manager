@@ -5,6 +5,7 @@ import com.github.project_njust.ccf_manager.wrapper.json.JsonSection;
 import java.sql.Date;
 
 public class ExamInfo {
+    public static final String KEY_COMPETITION = "info_competition"
     private final int examid;
     private int examscore;
     private Date examdate;

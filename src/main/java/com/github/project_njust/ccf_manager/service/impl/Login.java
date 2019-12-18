@@ -33,8 +33,8 @@ public class Login extends Service {
             return  res;
         }
         User us=SQLManager.getUserManager().selectUserById(uid);
-        IUserManager.hashPassword(password);
-        if(us.getPassword().equals("passward")){
+        String ps=IUserManager.hashPassword(password);
+        if(us.getPassword().equals(ps)){
             IResponse res =IResponse.createIResponse(IResponse.Status.SUCCESS);
             Token token = new Token(us);
             res.set("token", token.toTokenString());
