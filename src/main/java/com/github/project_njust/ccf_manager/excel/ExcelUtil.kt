@@ -145,7 +145,7 @@ object ExcelUtil {
     }
 
 
-    @JvmSuppressWildcards
+    @JvmStatic
     fun createSignUpList(examid: Int): UUID {
         val (uuid, file) = FileUploadServlet.createCacheFile()
         val book = XSSFWorkbook()
@@ -170,4 +170,5 @@ object ExcelUtil {
         fo.close()
         return uuid
     }
+
 }
