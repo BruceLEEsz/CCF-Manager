@@ -24,22 +24,20 @@ public class SignUp extends Service {
     public @NotNull IResponse onRequest(@NotNull ISubmitData input) {
         User us = input.getUser();
         ExamInfo examid = SQLManager.getExamInfoManager().getLastInfo();
-
-        Date date = new Date();
-        date = examid.getExamdate();
-        Date date1 = new Date();
-        if(date.before(date1)){
+        Integer x=examid.getExamid();
+        if (x== null) {
             IResponse response = IResponse.createIResponse(IResponse.Status.ERROR);
             response.set("reason", "未开始报名");
-            return  response;
+            return response;
         }
+        Date date=examid.getExamdate();
 
-        if (examid==null) {
-            IResponse response = IResponse.createIResponse(IResponse.Status.ERROR);
-            response.set("reason", "未开始报名");
+        if (date.getTime() < System.currentTimeMillis()){
+            IResponse response=IResponse.createIResponse(IResponse.Status.ERROR);
+            response.set("reason","报名已截止");
             return  response;
         }
-            ExamScore examScore = SQLManager.getExamScoreManager().selectExamScore(us.getUid(), examid.getExamid());
+        ExamScore examScore = SQLManager.getExamScoreManager().selectExamScore(us.getUid(), examid.getExamid());
 
             if (examScore != null) {
                 IResponse response = IResponse.createIResponse(IResponse.Status.ERROR);

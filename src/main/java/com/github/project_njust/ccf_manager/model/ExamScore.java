@@ -3,6 +3,12 @@ package com.github.project_njust.ccf_manager.model;
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection;
 
 public class ExamScore {
+
+    /**
+     *  学生每题的详细得分 是一个长度为5的集合
+     */
+    public static final String DETAILED_SCORE = "DETAILED_SCORE";
+
     private final int uid;
     private final int examid;
     private boolean confirm;

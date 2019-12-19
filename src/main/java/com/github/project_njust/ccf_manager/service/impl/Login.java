@@ -24,7 +24,7 @@ public class Login extends Service {
         Integer uid=SQLManager.getUserManager().getUID(username);
         if(uid==-2)
         {
-            SQLManager.getUserManager().createUser(username);
+            uid=SQLManager.getUserManager().createUser(username).getUid();
         }
         if(uid==-1)
         {

@@ -4,21 +4,18 @@ import com.github.project_njust.ccf_manager.SQLManager;
 import com.github.project_njust.ccf_manager.UserType;
 import com.github.project_njust.ccf_manager.excel.ExcelUtil;
 import com.github.project_njust.ccf_manager.model.Student;
-import com.github.project_njust.ccf_manager.model.User;
 import com.github.project_njust.ccf_manager.service.IResponse;
 import com.github.project_njust.ccf_manager.service.ISubmitData;
 import com.github.project_njust.ccf_manager.service.Service;
-import jdk.internal.util.xml.impl.Input;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UpdateStudentInfo extends Service {
-    public UpdateStudentInfo(){
-        super("updateStudentInfo", UserType.ADMIN);
+public class UpdateFinalList extends Service {
+    public UpdateFinalList(){
+        super("updateFinalList", UserType.ADMIN);
     }
 
     @Override
@@ -32,8 +29,10 @@ public class UpdateStudentInfo extends Service {
                 int uid = students1.getUid();
                 @Nullable Student student = SQLManager.getStudentManager().selectStudent(uid);
                 if(student==null){
-                    SQLManager.getStudentManager().insertStudent(students1);
+                    IResponse res=IResponse.createIResponse(IResponse.Status.ERROR);
+
                 }
+   //TO do             SQLManager.getStudentManager
             }
         } catch (Throwable throwable) {
             throwable.printStackTrace();
@@ -41,7 +40,4 @@ public class UpdateStudentInfo extends Service {
 
         IResponse res = IResponse.createIResponse(IResponse.Status.SUCCESS);
         return res;
-    }
-}
-
-
+}}
