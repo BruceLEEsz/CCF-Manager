@@ -5,15 +5,21 @@ import com.github.project_njust.ccf_manager.model.ExamScore
 import com.github.project_njust.ccf_manager.model.Student
 import com.github.project_njust.ccf_manager.servlet.FileUploadServlet
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
+import org.apache.log4j.Logger
 import org.apache.poi.hssf.usermodel.HSSFCell
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellType
+import org.apache.poi.ss.usermodel.Workbook
+import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.util.*
 
 object ExcelUtil {
-    private fun HSSFCell.getString(): String {
+
+
+    private fun Cell.getString(): String {
         return when (cellType) {
             CellType.STRING -> stringCellValue
             CellType.NUMERIC -> {
@@ -28,7 +34,7 @@ object ExcelUtil {
         }
     }
 
-    private fun HSSFCell.getInt(): Int? {
+    private fun Cell.getInt(): Int? {
         return when (cellType) {
             CellType.STRING -> {
                 try {
@@ -44,7 +50,7 @@ object ExcelUtil {
         }
     }
 
-    private fun HSSFCell.getDouble(): Double? {
+    private fun Cell.getDouble(): Double? {
         return when (cellType) {
             CellType.STRING -> {
                 try {
@@ -67,18 +73,19 @@ object ExcelUtil {
         val file = FileUploadServlet.cacheFiles[uuid] ?: throw FileNotFoundException("找不到文件")
         val book = HSSFWorkbook(FileInputStream(file))
         val she = book.getSheetAt(0)
-        var index = 1
-        while (true) {
+        for (index in 1..she.lastRowNum) {
             val row = she.getRow(index)
             if (row?.getCell(0) == null || row.getCell(0).stringCellValue.isEmpty()) {
-                break
+                continue
             }
-            val stu = Student(row.getCell(0).getString().toUpperCase(), JsonSection.createSection(), row.getCell(2).getString().toUpperCase())
-            val json = stu.data
-            json["Name"] = row.getCell(1).getString()
-            json["EntryYear"] = row.getCell(3).getInt()
-            list += stu
-            index++
+            try {
+                val stu = Student(row.getCell(0).getString().toUpperCase(), JsonSection.createSection(), row.getCell(2).getString().toUpperCase())
+                val json = stu.data
+                json["Name"] = row.getCell(1).getString()
+                json["EntryYear"] = row.getCell(3).getInt()
+                list += stu
+            } catch (e: Throwable) {
+            }
         }
         return list
     }
@@ -90,14 +97,19 @@ object ExcelUtil {
         val file = FileUploadServlet.cacheFiles[uuid] ?: throw FileNotFoundException("找不到文件")
         val book = HSSFWorkbook(FileInputStream(file))
         val she = book.getSheetAt(0)
-        var index = 3
-
-        while (true) {
+        for (index in 3..she.lastRowNum) {
             val row = she.getRow(index)
             if (row?.getCell(0) == null || row.getCell(0).stringCellValue.isEmpty()) {
-                break
+                continue
             }
-            TODO()
+            try {
+                val type = row.getCell(0).getString()
+                if (type != "身份证") {
+                    Logger.getLogger(ExcelUtil::class.java).warn("")
+                    continue
+                }
+            } catch (e: Throwable) {
+            }
         }
         return list
     }
