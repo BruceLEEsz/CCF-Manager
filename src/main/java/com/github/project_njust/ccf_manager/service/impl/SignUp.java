@@ -13,6 +13,8 @@ import com.github.project_njust.ccf_manager.wrapper.json.JsonSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Date;
+
 public class SignUp extends Service {
     public SignUp() {
         super("signUp", UserType.STUDENT);
@@ -22,6 +24,16 @@ public class SignUp extends Service {
     public @NotNull IResponse onRequest(@NotNull ISubmitData input) {
         User us = input.getUser();
         ExamInfo examid = SQLManager.getExamInfoManager().getLastInfo();
+
+        Date date = new Date();
+        date = examid.getExamdate();
+        Date date1 = new Date();
+        if(date.before(date1)){
+            IResponse response = IResponse.createIResponse(IResponse.Status.ERROR);
+            response.set("reason", "未开始报名");
+            return  response;
+        }
+
         if (examid==null) {
             IResponse response = IResponse.createIResponse(IResponse.Status.ERROR);
             response.set("reason", "未开始报名");
