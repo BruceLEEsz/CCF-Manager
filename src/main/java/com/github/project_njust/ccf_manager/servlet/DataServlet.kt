@@ -5,9 +5,9 @@ import com.github.project_njust.ccf_manager.SQLManager
 import com.github.project_njust.ccf_manager.UserType
 import com.github.project_njust.ccf_manager.model.User
 import com.github.project_njust.ccf_manager.service.kt.CoroutinesService
-import com.github.project_njust.ccf_manager.service.ExampleService
 import com.github.project_njust.ccf_manager.service.IResponse
 import com.github.project_njust.ccf_manager.service.Service
+import com.github.project_njust.ccf_manager.service.impl.*
 import com.github.project_njust.ccf_manager.service.kt.SubmitData
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
 import com.github.project_njust.ccf_manager.wrapper.json.MemorySection
@@ -102,8 +102,25 @@ class DataServlet : HttpServlet() {
     companion object {
         val services = mutableMapOf<String, Service>()
         fun init() {
-            services["/example"] = ExampleService()
-
+            for (ser in listOf(
+                    AddExam(),
+                    Confirm(),
+                    DownLoadFinalList(),
+                    DownloadSignUpList(),
+                    GetApplyList(),
+                    GetScore(),
+                    Login(),
+                    SetCode(),
+                    SetCompetition(),
+                    SetQualification(),
+                    SetScoreLine(),
+                    SignUp(),
+                    UpdateFinalList(),
+                    UpdateStudentInfo(),
+                    UpdateStudentScore()
+            )){
+                services["/${ser.name}"] = ser
+            }
             println("DataServlet初始化完成")
         }
     }
