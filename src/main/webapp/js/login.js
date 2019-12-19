@@ -20,11 +20,11 @@ const app = new Vue({
             }).then(rep => {
                 if (rep.data.status === "SUCCESS") {
                     setCookie("token", rep.data.token);
-                    alert("登陆成功");
                     let array = rep.data.token.split('.');
                     //json数据段中传入为student
                     const decodeToken = Base64.decode(array[1]);
-                    if (decodeToken.userType === "STUDENT") {
+                    let jsonToken = Json.parse(decodeToken);
+                    if (jsonToken.userType === "STUDENT") {
                         window.location.href = "../student_home.html"
                     } else {//json数据段中传入为Administration
                         window.location.href = "../admin_home.html"
