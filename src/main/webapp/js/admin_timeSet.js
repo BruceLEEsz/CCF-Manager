@@ -5,19 +5,19 @@ const app = new Vue({
         scoreLine: ''
     },
     methods: {
-        resetSignUpTime() {
+        resetSignUpTime: function () {
             this.signUpTime = ''
         },
-        resetScoreLine() {
+        resetScoreLine: function () {
             this.scoreLine = ''
         },
-        addExam() {
+        addExam: function () {
             axios({
                 url: "/Data/addExam",
                 methods: "POST",
                 data: {
                     token: getCookie("token"),
-                    params:{
+                    params: {
                         signUpTime: this.signUpTime,
                         scoreLine: this.scoreLine
                     }

@@ -5,19 +5,19 @@ const app = new Vue({
         formData: formData
     },
     methods: {
-        upload: function () {
-            this.formData.append('userfile', document.getElementById("i-file").files[0]);
+        upload() {
+            this.formData.append('userfile', document.getElementById('freeQualification').files[0]);
             this.formData.append("token", getCookie("token"));
             axios({
                 url: "/File/upload",
-                method: "POST",
+                methods: "POST",
                 data: formData
             }).then(function (rep) {
                     if (rep.data.status === 'SUCCESS') {
                         setCookie("token", rep.data.token);
                         let UUID = rep.data.UUID;
                         axios({
-                            url: "/Data/uploadStudentInfo",
+                            url: "/Data/uploadFinalList",
                             method: "POST",
                             data: {
                                 token: getCookie("token"),
@@ -28,15 +28,15 @@ const app = new Vue({
                         }).then(function (rep) {
                             if (rep.data.status === "SUCCESS") {
                                 setCookie("token", rep.data.token);
-                                alert("学生信息上传成功");
+                                alert("免费名单上传成功");
                             } else {
-                                alert("学生信息上传失败" + rep.data.reason);
+                                alert("免费名单上传失败" + rep.data.reason);
                             }
                         }, function () {
                             alert("抱歉，服务器当前不可用");
                         })
                     } else {
-                        alert("学生信息上传失败" + rep.data.reason);
+                        alert("免费名单上传失败" + rep.data.reason);
                     }
                 }, function () {
                     alert("抱歉，服务器当前不可用");
