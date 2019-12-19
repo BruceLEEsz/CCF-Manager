@@ -1,7 +1,11 @@
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import java.io.File
+import java.io.FileOutputStream
 
 class StudentDataTest {
     lateinit var book: HSSFWorkbook
@@ -27,5 +31,27 @@ class StudentDataTest {
             println(row.getCell(3).toString())
             index++
         }
+    }
+
+
+    val file = File("test.xlsx")
+    @Before
+    @Ignore
+    fun deleteFile(){
+        file.delete()
+        file.createNewFile()
+    }
+    @Test
+    @Ignore
+    fun createXLS(){
+        val book = XSSFWorkbook()
+        val sheet = book.createSheet()
+        val r = sheet.createRow(0)
+        r.createCell(0).setCellValue("hello world")
+
+        val fo = FileOutputStream(file)
+        book.write(fo)
+        fo.flush()
+        fo.close()
     }
 }

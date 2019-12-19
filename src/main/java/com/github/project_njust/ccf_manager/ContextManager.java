@@ -2,6 +2,7 @@ package com.github.project_njust.ccf_manager;
 
 import com.github.project_njust.ccf_manager.servlet.DataServlet;
 import com.github.project_njust.ccf_manager.servlet.FileUploadServlet;
+import com.github.project_njust.ccf_manager.sql.IUserManager;
 import com.github.project_njust.ccf_manager.wrapper.token.TokenManager;
 
 import org.apache.log4j.Logger;
@@ -26,7 +27,10 @@ public class ContextManager implements ServletContextListener {
         TokenManager.init();
         FileUploadServlet.Companion.init();
         DataServlet.Companion.init();
-        System.out.println("Tomcat初始化完成");
+        if (SQLManager.getUserManager().getUID("admin") < 0) {
+            SQLManager.getUserManager().createAdmin("admin", IUserManager.hashPassword("admin"));
+        }
+        System.out.println("CCF Manager初始化完成");
     }
 
     @Override
@@ -35,7 +39,7 @@ public class ContextManager implements ServletContextListener {
     }
 
     @NotNull
-    public static String getEncoding(){
+    public static String getEncoding() {
         return servletContext.getInitParameter("encoding");
     }
 }
