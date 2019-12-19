@@ -89,4 +89,27 @@ object StudentManagerImpl : IStudentManager {
         }
         return null
     }
+
+    fun selectConditional(sql: String, vararg args: Any): MutableList<Student> {
+        if (!sql.startsWith("SELECT * FROM Student")) {
+            throw IllegalArgumentException("指定的查询语句并非以SELECT * FROM Student, 错误的语句: $sql")
+        }
+        val list = mutableListOf<Student>()
+        SQLManager.operateConnection {
+            val ps = this.prepareStatement(sql)
+            for ((i, v) in args.withIndex()) {
+                ps.setObject(i + 1, v)
+            }
+            val rs = ps.executeQuery()
+            while (rs.next()) {
+                list += Student(
+                        rs.getString(1),
+                        rs.getInt(2),
+                        JsonSection.readFromJson(rs.getString(4)),
+                        rs.getString(3)
+                )
+            }
+        }
+        return list
+    }
 }
