@@ -1,0 +1,8 @@
+.bg {
+    background:url(../images/bridge.jpg) no-repeat ;
+    background-size:cover;
+}
+.bgwhite{
+    background-color:white;
+    background-size:contain;
+}
