@@ -17,6 +17,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 import java.util.*
 
@@ -144,8 +146,28 @@ object ExcelUtil {
 
 
     @JvmSuppressWildcards
-    fun createSignUPList(): UUID {
+    fun createSignUpList(examid: Int): UUID {
         val (uuid, file) = FileUploadServlet.createCacheFile()
-        TODO()
+        val book = XSSFWorkbook()
+        val sheet = book.createSheet("学生报名表")
+        sheet.createRow(0).also {
+            it.createCell(0).setCellValue("学号")
+            it.createCell(1).setCellValue("姓名")
+            it.createCell(2).setCellValue("身份证")
+        }
+        var index = 1
+        val list = SQLManager.getExamScoreManager().selectAllExamScore(examid)
+        for (es in list) {
+            val stu = SQLManager.getStudentManager().selectStudent(es.uid) ?: continue
+            val row = sheet.createRow(index++)
+            row.createCell(0).setCellValue(stu.studentId)
+            row.createCell(1).setCellValue(stu.data.getString("Name"))
+            row.createCell(2).setCellValue(stu.identitycard)
+        }
+        val fo = FileOutputStream(file)
+        book.write(fo)
+        fo.flush()
+        fo.close()
+        return uuid
     }
 }
