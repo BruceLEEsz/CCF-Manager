@@ -70,7 +70,7 @@ class DataServlet : HttpServlet() {
                     return@launch
                 }
             }
-            val input = parms.getJsonSection("parms")!!
+            val input = parms.getJsonSection("params")!!
             val user: User?
             if (token?.uid != null) {
                 user = SQLManager.getUserManager().selectUserById(token?.uid)

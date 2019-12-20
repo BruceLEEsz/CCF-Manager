@@ -22,12 +22,14 @@ const app = new Vue({
                     setCookie("token", rep.data.token);
                     alert("登陆成功");
                     let array = rep.data.token.split('.');
+
                     //json数据段中传入为student
-                    const decodeToken = array[1].fromBase64();
+                    const decodeToken = Base64.decode(array[1]);
+                    console.log(decodeToken);
                     if (decodeToken.userType === "STUDENT") {
-                        window.location.href = "../student_home.html"
+                        window.location.href = "/student_home.html"
                     } else {//json数据段中传入为Administration
-                        window.location.href = "../admin_home.html"
+                        window.location.href = "/admin_home.html"
                     }
                 } else {
                     //console.log(rep.data.reason)
