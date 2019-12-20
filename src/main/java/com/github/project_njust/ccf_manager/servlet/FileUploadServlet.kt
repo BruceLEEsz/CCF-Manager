@@ -43,6 +43,7 @@ class FileUploadServlet : HttpServlet() {
         fun createCacheFile():Pair<UUID,File>{
             val uuid = UUID.randomUUID()
             val file = File(FileManager.tempFilesFolder, "$uuid")
+            cacheFiles[uuid] = file
             return uuid to file
         }
     }

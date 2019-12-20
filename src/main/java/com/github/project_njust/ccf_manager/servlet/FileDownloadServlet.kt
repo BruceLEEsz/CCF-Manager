@@ -39,6 +39,7 @@ class FileDownloadServlet : HttpServlet() {
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         req.characterEncoding = ContextManager.getEncoding()
         val fileName = req.getParameter("file")
+        println("fileName: $fileName")
         resp.characterEncoding = ContextManager.getEncoding()
         if (fileName == null) {
             resp.status = 404
@@ -51,21 +52,24 @@ class FileDownloadServlet : HttpServlet() {
             resp.status = 200
             val out = resp.outputStream
             out.write(ins!!)
+            out.flush()
             out.close()
             ins.close()
         } else {
             try {
                 val uuid = UUID.fromString(fileName)
+                println("uuid: $uuid")
                 val file = FileUploadServlet.cacheFiles[uuid]
                 if(file == null){
                     resp.status = 404
                     return
                 }
                 val fname = FileUploadServlet.cacheFileName[uuid] ?: uuid.toString()
-                resp.setHeader("Content-Disposition", "attachment;filename=$fname");
+                resp.setHeader("Content-Disposition", "attachment;filename=${URLEncoder.encode(fname,"UTF-8")}");
                 val ins = FileInputStream(file)
                 val out = resp.outputStream
                 out.write(ins)
+                out.flush()
                 out.close()
                 ins.close()
             } catch (e: Throwable) {
