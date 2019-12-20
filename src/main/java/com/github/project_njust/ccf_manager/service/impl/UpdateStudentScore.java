@@ -8,6 +8,7 @@ import com.github.project_njust.ccf_manager.model.Student;
 import com.github.project_njust.ccf_manager.service.IResponse;
 import com.github.project_njust.ccf_manager.service.ISubmitData;
 import com.github.project_njust.ccf_manager.service.Service;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class UpdateStudentScore extends Service {
-    public UpdateStudentScore(){
+    public UpdateStudentScore() {
         super("updateStudentScore", UserType.ADMIN);
     }
 
@@ -29,13 +30,16 @@ public class UpdateStudentScore extends Service {
             for (ExamScore examScore : examscores) {
                 int uid = examScore.getUid();
                 int examid = examScore.getExamid();
-                @Nullable ExamScore examScore1 = SQLManager.getExamScoreManager().selectExamScore(uid,examid);
-                if(examScore1==null){
+                @Nullable ExamScore examScore1 = SQLManager.getExamScoreManager().selectExamScore(uid, examid);
+                if (examScore1 == null) {
                     SQLManager.getExamScoreManager().insertExamScore(examScore);
                 }
             }
         } catch (Throwable throwable) {
             throwable.printStackTrace();
+            IResponse res = IResponse.createIResponse(IResponse.Status.ERROR);
+            res.set("reason", "文件解析失败: " + throwable.getMessage());
+            return res;
         }
 
         IResponse res = IResponse.createIResponse(IResponse.Status.SUCCESS);
