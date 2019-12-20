@@ -5,8 +5,5 @@ target/*
 .project
 nbproject/*
 dokka/*
-src/main/webapp/vendors/*
-src/main/webapp/build/*
-src/main/webapp/images/*
 CCF Manager/*
 /src/main/webapp/js/vue.js
