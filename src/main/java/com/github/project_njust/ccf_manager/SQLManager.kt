@@ -131,6 +131,7 @@ object SQLManager {
                 cfg.maximumPoolSize = it.getInt("MaximumPoolSize")
             }
             connectPool = HikariDataSource(cfg)
+            createTable()
         } catch (t: Throwable) {
             Logger.getLogger(SQLManager::class.java).error("初始化数据库中发生错误", t)
         }
@@ -185,16 +186,6 @@ CREATE TABLE IF NOT EXISTS ExamScore
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
             """)
-            try {
-                sta.execute("""
-CREATE VIEW UserName (NAME, UID) AS (
-    SELECT JSON_EXTRACT(DATA, '$.Name'), UID
-    FROM User
-    WHERE JSON_CONTAINS(DATA, '$.Name')
-)
-                """)
-            } catch (e: Throwable) {
-            }
         }
     }
 
