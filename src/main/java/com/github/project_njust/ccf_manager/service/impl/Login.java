@@ -29,7 +29,7 @@ public class Login extends Service {
         if(uid==-1)
         {
             IResponse res=IResponse.createIResponse(IResponse.Status.ERROR);
-            res.set("reson","用户不存在");
+            res.set("reason","用户不存在");
             return  res;
         }
         User us=SQLManager.getUserManager().selectUserById(uid);
