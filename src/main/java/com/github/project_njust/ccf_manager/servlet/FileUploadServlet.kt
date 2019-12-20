@@ -32,6 +32,7 @@ class FileUploadServlet : HttpServlet() {
 
     companion object : ProgressListener {
         val cacheFiles = HashMap<UUID, File>()
+        val cacheFileName = hashMapOf<UUID,String>()
 
         override fun update(pBytesRead: Long, pContentLength: Long, pItems: Int) {
         }
