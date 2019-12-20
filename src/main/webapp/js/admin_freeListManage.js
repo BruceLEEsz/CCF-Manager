@@ -1,13 +1,7 @@
 const app = new Vue({
     el: "#freeListTable",
     data: {
-        students: [
-            {
-                name:"LLL",
-                studentID:"917116150216",
-                confirm:false
-            }
-        ],
+        students: '',
         chooseAll: false
     },
     methods: {
@@ -22,11 +16,31 @@ const app = new Vue({
                     }
                 }
             }).then(function (rep) {
-                if (rep.status === "SUCCESS") {
+                if (rep.data.status === "SUCCESS") {
                     setCookie("token", rep.data.token);
                     alert("免费资格设置成功")
                 } else {
                     alert("免费资格设置失败" + rep.data.reason);
+                }
+            }, function () {
+                alert("抱歉，服务器当前不可用");
+            })
+        },
+
+        downloadSignUpList: function () {
+            axios({
+                url: "/Data/downLoadFinalList",
+                method: "POST",
+                data: {
+                    token: getCookie("token")
+                }
+            }).then(function (rep) {
+                if (rep.data.status === "SUCCESS") {
+                    setCookie("token", rep.data.token);
+                    let UUID = rep.data.UUID;
+                    window.location.href = "/File/download?file=" + UUID;
+                } else {
+                    alert("报名信息获取失败" + rep.data.reason);
                 }
             }, function () {
                 alert("抱歉，服务器当前不可用");
@@ -41,9 +55,9 @@ const app = new Vue({
                 token: getCookie("token")
             }
         }).then(function (rep) {
-            if (rep.status === "SUCCESS") {
+            if (rep.data.status === "SUCCESS") {
                 setCookie("token", rep.data.token);
-                this.students = rep.data.students;
+                app.students = rep.data.students;
             } else {
                 alert("获取报名名单失败" + rep.data.reason);
             }

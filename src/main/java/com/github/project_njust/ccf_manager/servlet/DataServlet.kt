@@ -77,7 +77,7 @@ class DataServlet : HttpServlet() {
                     return@launch
                 }
             }
-            val input = parms.getJsonSection("params")!!
+            val input = parms.getJsonSection("params") ?: JsonSection.createSection()
             val user: User?
             if (token?.uid != null) {
                 user = SQLManager.getUserManager().selectUserById(token?.uid)
@@ -90,7 +90,9 @@ class DataServlet : HttpServlet() {
                     val cs = service as CoroutinesService
                     cs.onCoroutinesRequest(submitData)
                 } else {
-                    service.onRequest(submitData)
+                    val r = service.onRequest(submitData)
+                    println("Result: $r")
+                    r
                 }
             }
             val writer = resp.writer
@@ -111,10 +113,12 @@ class DataServlet : HttpServlet() {
         fun init() {
             for (ser in listOf(
                     AddExam(),
+                    ChangePassword(),
                     Confirm(),
                     DownLoadFinalList(),
                     DownloadSignUpList(),
                     GetApplyList(),
+                    GetExamId(),
                     GetScore(),
                     Login(),
                     SetCode(),
@@ -122,9 +126,9 @@ class DataServlet : HttpServlet() {
                     SetQualification(),
                     SetScoreLine(),
                     SignUp(),
-                    UpdateFinalList(),
-                    UpdateStudentInfo(),
-                    UpdateStudentScore()
+                    UploadFinalList(),
+                    UploadStudentInfo(),
+                    UploadStudentScore()
             )){
                 services["/${ser.name}"] = ser
             }

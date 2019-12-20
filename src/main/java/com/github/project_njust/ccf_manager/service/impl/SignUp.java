@@ -23,9 +23,9 @@ public class SignUp extends Service {
     @Override
     public @NotNull IResponse onRequest(@NotNull ISubmitData input) {
         User us = input.getUser();
+        System.out.println(us);
         ExamInfo examid = SQLManager.getExamInfoManager().getLastInfo();
-        Integer x=examid.getExamid();
-        if (x== null) {
+        if (examid== null) {
             IResponse response = IResponse.createIResponse(IResponse.Status.ERROR);
             response.set("reason", "未开始报名");
             return response;

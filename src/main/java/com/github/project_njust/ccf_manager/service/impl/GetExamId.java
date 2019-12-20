@@ -23,13 +23,14 @@ public class GetExamId extends Service {
     @Override
     public @NotNull IResponse onRequest(@NotNull ISubmitData input) {
         ExamInfo examInfo = SQLManager.getExamInfoManager().getLastInfo();
-        int examid = examInfo.getExamid();
        if(examInfo==null){
            IResponse res =IResponse.createIResponse(IResponse.Status.ERROR);
            res.set("reason","考试未开始");
+           return res;
        }
+        int examid = examInfo.getExamid();
         IResponse res =IResponse.createIResponse(IResponse.Status.SUCCESS);
-        res.set("examid",examid);
+        res.set("examId",examid+19);
         return res ;
     }
 }

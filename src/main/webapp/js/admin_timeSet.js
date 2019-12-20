@@ -12,9 +12,10 @@ const app = new Vue({
             this.scoreLine = ''
         },
         addExam: function () {
+            console.log("assss");
             axios({
                 url: "/Data/addExam",
-                methods: "POST",
+                method: "POST",
                 data: {
                     token: getCookie("token"),
                     params: {
