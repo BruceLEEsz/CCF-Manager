@@ -92,7 +92,7 @@ object UserManagerImpl : IUserManager {
 
     override fun getUID(name: String): Int {
         SQLManager.operateConnection {
-            val ps = this.prepareStatement("SELECT UID FROM UserName WHERE NAME = ? LIMIT 1")
+            val ps = this.prepareStatement("SELECT UID FROM User WHERE NAME = ? LIMIT 1")
             ps.setString(1, name)
             val rs = ps.executeQuery()
             if (rs.next()) {
