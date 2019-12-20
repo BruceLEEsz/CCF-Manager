@@ -61,7 +61,8 @@ class FileDownloadServlet : HttpServlet() {
                     resp.status = 404
                     return
                 }
-                resp.setHeader("Content-Disposition", "attachment;filename=$uuid");
+                val fname = FileUploadServlet.cacheFileName[uuid] ?: uuid.toString()
+                resp.setHeader("Content-Disposition", "attachment;filename=$fname");
                 val ins = FileInputStream(file)
                 val out = resp.outputStream
                 out.write(ins)

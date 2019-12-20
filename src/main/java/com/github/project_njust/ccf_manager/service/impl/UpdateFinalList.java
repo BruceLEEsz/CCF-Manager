@@ -15,29 +15,20 @@ import java.util.UUID;
 
 public class UpdateFinalList extends Service {
     public UpdateFinalList(){
-        super("updateFinalList", UserType.ADMIN);
+        super("updateFinalList", UserType.PRINCIPAL);
     }
 
     @Override
     public @NotNull IResponse onRequest(@NotNull ISubmitData input) {
         String uuid = input.getData().getString("uuid");
         UUID id = UUID.fromString(uuid);
-
         try {
-            List<Student> students = ExcelUtil.loadStudents(id);
-            for (Student students1 : students) {
-                int uid = students1.getUid();
-                @Nullable Student student = SQLManager.getStudentManager().selectStudent(uid);
-                if(student==null){
-                    IResponse res=IResponse.createIResponse(IResponse.Status.ERROR);
-
-                }
-   //TO do             SQLManager.getStudentManager
-            }
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            ExcelUtil.loadFinalList(id);
+        }catch (Throwable e){
+            IResponse res = IResponse.createIResponse(IResponse.Status.ERROR);
+            res.set("reason","文件解析失败: "+ e.getMessage());
+            return res;
         }
-
         IResponse res = IResponse.createIResponse(IResponse.Status.SUCCESS);
         return res;
 }}
