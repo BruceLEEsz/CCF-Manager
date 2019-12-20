@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UpdateStudentInfo extends Service {
-    public UpdateStudentInfo(){
-        super("updateStudentInfo", UserType.ADMIN);
+public class UploadStudentInfo extends Service {
+    public UploadStudentInfo(){
+        super("uploadStudentInfo", UserType.ADMIN);
     }
 
     @Override
     public @NotNull IResponse onRequest(@NotNull ISubmitData input) {
-        String uuid = input.getData().getString("uuid");
+        String uuid = input.getData().getString("UUID");
         UUID id = UUID.fromString(uuid);
 
         try {
