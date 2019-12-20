@@ -27,13 +27,19 @@ public class ChangePassword extends Service {
         User us = input.getUser();
         int uid = us.getUid();
 
+        if(password1.equals(password2)){
+            IResponse res =IResponse.createIResponse(IResponse.Status.ERROR);
+            res.set("reason","修改密码与当前密码一致");
+            return res ;
+        }
         User user = SQLManager.getUserManager().selectUserById(uid);
         if(!password1.equals(user.getPassword())){
             IResponse res =IResponse.createIResponse(IResponse.Status.ERROR);
             res.set("reason","密码输入错误");
             return res ; 
         }
-        SQLManager.getUserManager().
+        user.setPassword(password2);
+        SQLManager.getUserManager().updateUser(user);
 
         IResponse res =IResponse.createIResponse(IResponse.Status.SUCCESS);
         return res ;
