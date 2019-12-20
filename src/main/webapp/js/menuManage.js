@@ -116,3 +116,22 @@ function admin_setCode() {
         alert("请先登录");
     }
 }
+
+function logout() {
+    setCookie("token", "");
+    window.location.href = "/login.html";
+}
+
+function changePassword() {
+    let token = getCookie("token");
+    if (token !== '') {
+        let tokenArray = token.split('.');
+        const decodeToken = Base64.decode(tokenArray[1]);
+        let jsonToken = JSON.parse(decodeToken);
+        window.location.href = "/changePassword.html";
+    } else {
+        window.location.href = "/login.html";
+        alert("请先登录");
+    }
+
+}
