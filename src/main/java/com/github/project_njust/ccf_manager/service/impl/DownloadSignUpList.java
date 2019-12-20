@@ -9,6 +9,8 @@ import com.github.project_njust.ccf_manager.service.ISubmitData;
 import com.github.project_njust.ccf_manager.service.Service;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.UUID;
+
 public class DownloadSignUpList extends Service {
     public DownloadSignUpList(){
         super("downloadSignUpList", UserType.ADMIN);
@@ -23,7 +25,9 @@ public class DownloadSignUpList extends Service {
             res.set("reason","未创建任何考试报名信息");
             return res;
         }
+        UUID uuid = ExcelUtil.createSignUpList(lastInfo.getExamid());
         IResponse res = IResponse.createIResponse(IResponse.Status.SUCCESS);
+        res.set("UUID",uuid.toString());
         return res;
     }
 }

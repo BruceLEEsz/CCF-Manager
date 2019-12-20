@@ -61,7 +61,14 @@ class DataServlet : HttpServlet() {
                     async.complete()
                     return@launch
                 }
-                if (token.userType !in service.allowTypes) {
+                var auth = false
+                for(ut in service.allowTypes){
+                    if(token.userType.typeId >= ut.typeId){
+                        auth = true
+                        break
+                    }
+                }
+                if (!auth) {
                     val res = IResponse.createIResponse(IResponse.Status.REFUSE)
                     res["reason"] = "权限不足或权限不正确"
                     val writer = resp.writer
