@@ -32,7 +32,7 @@ object TokenManager {
     @JvmStatic
     fun deToken(token: String): Token? {
         val str = token.split(".")
-        if (str.size != 3 || str[1] != HEADER) {
+        if (str.size != 3 || str[0] != HEADER) {
             return null
         }
         try {

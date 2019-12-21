@@ -43,6 +43,7 @@ class FileUploadServlet : HttpServlet() {
         fun createCacheFile():Pair<UUID,File>{
             val uuid = UUID.randomUUID()
             val file = File(FileManager.tempFilesFolder, "$uuid")
+            cacheFiles[uuid] = file
             return uuid to file
         }
     }
@@ -104,12 +105,18 @@ class FileUploadServlet : HttpServlet() {
                 forms += fileItem
             }
         }
-        val token = forms.find { it.name == "token" }
+        val token = forms.find {
+
+            println("it.name: ${it.fieldName}")
+            it.fieldName == "token"
+        }
+        println("token: $token")
         val result = IResponse.createIResponse(IResponse.Status.SUCCESS)
         if (token == null) {
             result.setStatus(IResponse.Status.REFUSE)
         } else {
             val t = token.getString("utf-8")
+            println("t: $t")
             val token = TokenManager.deToken(t)
             if (token == null) {
                 result.setStatus(IResponse.Status.REFUSE)
