@@ -15,7 +15,7 @@ const app = new Vue({
                     }
                 }
             }).then(function (rep) {
-                if (rep.status === 'SUCCESS') {
+                if (rep.data.status === 'SUCCESS') {
                     setCookie("token", rep.data.token);
                     alert("团报码发布成功");
                 } else {

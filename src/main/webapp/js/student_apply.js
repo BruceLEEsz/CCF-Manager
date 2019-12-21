@@ -20,7 +20,7 @@ const app = new Vue({
                     }
                 }, function () {
                     alert("抱歉，网页当前不可用");
-                })
+                });
             }
         },
         created: function () {
