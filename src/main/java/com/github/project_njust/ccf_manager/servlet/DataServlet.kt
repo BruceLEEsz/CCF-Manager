@@ -8,6 +8,7 @@ import com.github.project_njust.ccf_manager.service.kt.CoroutinesService
 import com.github.project_njust.ccf_manager.service.IResponse
 import com.github.project_njust.ccf_manager.service.Service
 import com.github.project_njust.ccf_manager.service.impl.*
+import com.github.project_njust.ccf_manager.service.impl.kt.ScoreInfo
 import com.github.project_njust.ccf_manager.service.kt.SubmitData
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
 import com.github.project_njust.ccf_manager.wrapper.json.MemorySection
@@ -30,6 +31,7 @@ class DataServlet : HttpServlet() {
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         resp.characterEncoding = ContextManager.getEncoding()
         resp.status = 400
+        resp.setHeader("Content-type", "application/json;charset=UTF-8");
         resp.writer.println("错误 请用POST访问")
     }
 
@@ -124,7 +126,8 @@ class DataServlet : HttpServlet() {
                     SignUp(),
                     UpdateFinalList(),
                     UpdateStudentInfo(),
-                    UpdateStudentScore()
+                    UpdateStudentScore(),
+                    ScoreInfo
             )){
                 services["/${ser.name}"] = ser
             }
