@@ -29,6 +29,11 @@
 
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
+    <!--    vue-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+
 </head>
 
 <body class="nav-md">
@@ -54,7 +59,7 @@
                 </div>
                 <!-- /menu profile quick info -->
 
-                <br />
+                <br/>
 
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -123,7 +128,8 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
                                 <img src="images/img1.png" alt="">？？？
                                 <span class=" fa fa-angle-down"></span>
                             </a>
@@ -144,7 +150,8 @@
                         </li>
 
                         <li role="presentation" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
+                               aria-expanded="false">
                                 <i class="fa fa-envelope-o"></i>
                                 <span class="badge bg-green">1</span>
                             </a>
@@ -204,7 +211,8 @@
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                           aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="#">设置1</a>
                                             </li>
@@ -218,8 +226,11 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <br />
-                                <button id="exportBtn" class="export-excel btn btn-default" data-table="#countTable">下载</button>
+                                <br/>
+                                <button id="exportBtn" class="export-excel btn btn-block btn-info"
+                                        data-table="#countTable"
+                                        v-on:click="downloadSignUpList">下载报名名单
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -284,5 +295,6 @@
 <script src="js/cookie.js"></script>
 <script src="js/base64.min.js"></script>
 <script src="js/menuManage.js"></script>
+<script src="js/admin_applyListDownload.js"></script>
 </body>
 </html>

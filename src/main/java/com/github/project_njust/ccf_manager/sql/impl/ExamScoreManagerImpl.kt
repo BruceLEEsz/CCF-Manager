@@ -74,6 +74,7 @@ object ExamScoreManagerImpl : IExamScoreManager {
             ps.setBoolean(3, es.confirm)
             ps.setInt(4, es.examgrade)
             ps.setString(5, es.data.toString())
+            ps.executeUpdate()
         }
     }
 
