@@ -1,27 +1,27 @@
 const app = new Vue({
-    el: "#code",
+    el: "#MessagePost",
     data: {
-        code: ''
+        competition:""
     },
     methods: {
-        set: function () {
+        release: function () {
             axios({
-                url: "/Data/setCode",
-                method: "POST",
+                url: "/Data/setCompetition",
+                method: "post",
                 data: {
                     token: getCookie("token"),
                     params: {
-                        code: this.code
+                        competition:app.competition
                     }
                 }
             }).then(function (rep) {
                 if (rep.data.status === 'SUCCESS') {
                     setCookie("token", rep.data.token);
-                    alert("团报码发布成功");
+                    alert("竞赛信息发布成功");
                 } else {
-                    alert("团报码发布失败" + rep.data.reason);
+                    alert("发布失败" + rep.data.reason);
                 }
-            }, function () {
+            }).catch(function(rep){
                 alert("抱歉，服务器当前不可用");
             })
         }
