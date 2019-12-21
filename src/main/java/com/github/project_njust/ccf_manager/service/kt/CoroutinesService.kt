@@ -10,4 +10,8 @@ abstract class CoroutinesService(name: String, vararg types: UserType) : Service
 
 
     abstract suspend fun onCoroutinesRequest(input: ISubmitData): IResponse
+
+    final override fun onRequest(input: ISubmitData): IResponse {
+        throw NotImplementedError("错误的调用")
+    }
 }

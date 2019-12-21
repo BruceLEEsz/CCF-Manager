@@ -8,6 +8,7 @@ import com.github.project_njust.ccf_manager.service.kt.CoroutinesService
 import com.github.project_njust.ccf_manager.service.IResponse
 import com.github.project_njust.ccf_manager.service.Service
 import com.github.project_njust.ccf_manager.service.impl.*
+import com.github.project_njust.ccf_manager.service.impl.kt.ScoreInfo
 import com.github.project_njust.ccf_manager.service.kt.SubmitData
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
 import com.github.project_njust.ccf_manager.wrapper.json.MemorySection
@@ -78,7 +79,7 @@ class DataServlet : HttpServlet() {
                     return@launch
                 }
             }
-            val input = parms.getJsonSection("params") ?: JsonSection.createSection()
+            val input = parms.getJsonSection("params")!!
             val user: User?
             if (token?.uid != null) {
                 user = SQLManager.getUserManager().selectUserById(token?.uid)
@@ -91,9 +92,7 @@ class DataServlet : HttpServlet() {
                     val cs = service as CoroutinesService
                     cs.onCoroutinesRequest(submitData)
                 } else {
-                    val r = service.onRequest(submitData)
-                    println("Result: $r")
-                    r
+                    service.onRequest(submitData)
                 }
             }
             val writer = resp.writer
@@ -114,13 +113,11 @@ class DataServlet : HttpServlet() {
         fun init() {
             for (ser in listOf(
                     AddExam(),
-                    ChangePassword(),
                     Confirm(),
                     DeleteQualification(),
                     DownLoadFinalList(),
                     DownloadSignUpList(),
                     GetApplyList(),
-                    GetExamId(),
                     GetScore(),
                     Login(),
                     SetCode(),
@@ -128,9 +125,9 @@ class DataServlet : HttpServlet() {
                     SetQualification(),
                     SetScoreLine(),
                     SignUp(),
-                    UploadFinalList(),
-                    UploadStudentInfo(),
-                    UploadStudentScore()
+                    UpdateFinalList(),
+                    UpdateStudentInfo(),
+                    UpdateStudentScore()
             )){
                 services["/${ser.name}"] = ser
             }
