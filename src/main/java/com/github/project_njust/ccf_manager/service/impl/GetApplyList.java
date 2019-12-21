@@ -4,11 +4,14 @@ import com.github.project_njust.ccf_manager.SQLManager;
 import com.github.project_njust.ccf_manager.UserType;
 import com.github.project_njust.ccf_manager.model.ExamInfo;
 import com.github.project_njust.ccf_manager.model.ExamScore;
+import com.github.project_njust.ccf_manager.model.Student;
 import com.github.project_njust.ccf_manager.service.IResponse;
 import com.github.project_njust.ccf_manager.service.ISubmitData;
 import com.github.project_njust.ccf_manager.service.Service;
+import com.github.project_njust.ccf_manager.wrapper.json.JsonSection;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GetApplyList extends Service {
@@ -26,7 +29,17 @@ public class GetApplyList extends Service {
         }
         List<ExamScore> examScores=SQLManager.getExamScoreManager().selectAllExamScore(examInfo.getExamid());
         IResponse res = IResponse.createIResponse(IResponse.Status.SUCCESS);
-        res.set("students",examScores);
+        List<JsonSection> result =new ArrayList<>();
+        for(ExamScore es : examScores){
+            JsonSection js = JsonSection.createSection();
+            Student student = SQLManager.getStudentManager().selectStudent(es.getUid());
+            js.set("name",student.getData().getString("Name"));
+            js.set("studentID", student.getStudentId());
+            js.set("confirm", es.getConfirm());
+            result.add(js);
+            System.out.println("examScores: "+js);
+        }
+        res.set("students", result);
         return res;
     }
 }

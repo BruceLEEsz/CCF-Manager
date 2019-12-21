@@ -15,9 +15,9 @@ const app = new Vue({
                     token: getCookie("token")
                 }
             }).then(rep => {
-                if (rep.token.status === "success") {
+                if (rep.data.status === "SUCCESS") {
                     setCookie("token", rep.data.token);
-                    this.allScores = rep.data;
+                    this.allScores = rep.data.allScores;
                 } else {
                     alert("成绩加载失败" + rep.data.reason);
                 }

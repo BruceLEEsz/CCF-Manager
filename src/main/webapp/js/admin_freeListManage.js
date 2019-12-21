@@ -18,7 +18,8 @@ const app = new Vue({
             }).then(function (rep) {
                 if (rep.data.status === "SUCCESS") {
                     setCookie("token", rep.data.token);
-                    alert("免费资格设置成功")
+                    alert("免费资格设置成功");
+                    window.location.href = "/admin_freeListManage.html"
                 } else {
                     alert("免费资格设置失败" + rep.data.reason);
                 }
@@ -26,7 +27,29 @@ const app = new Vue({
                 alert("抱歉，服务器当前不可用");
             })
         },
+        deleteQualification: function (studentID) {
+            axios({
+                url: "/Data/deleteQualification",
+                method: "POST",
+                data: {
+                    token: getCookie("token"),
+                    params: {
+                        studentID: studentID
+                    }
+                }
+            }).then(function (rep) {
+                if (rep.data.status === 'SUCCESS') {
+                    setCookie("token", rep.data.token);
+                    alert("取消免费资格成功");
+                    window.location.href = "/admin_freeListManage.html"
+                } else {
+                    alert("取消免费资格失败" + rep.data.reason);
+                }
+            }, function () {
+                alert("抱歉，服务器当前不可用");
+            })
 
+        },
         downloadSignUpList: function () {
             axios({
                 url: "/Data/downLoadFinalList",

@@ -306,6 +306,9 @@ open class MemorySection(
                 if (v is JsonElement) {
                     arr.add(v)
                 }
+                if(v is JsonSection){
+                    arr.add(v.toJsonObject())
+                }
             }
             return arr
         }

@@ -12,7 +12,8 @@ function showScoreDistribution() {
     $("#showAverageScore").removeClass("active");
     gradeChartContainer1.show();
     gradeChartContainer2.hide();
-
+    gradeChart1.showLoading();
+    gradeChart1.hideLoading();
     gradeChart1.setOption({
         title: {
             text: 'CCF',

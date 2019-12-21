@@ -11,15 +11,15 @@ const app = new Vue({
                 data: {
                     token: getCookie("token"),
                     params: {
-                        examscore: this.examscore
+                        scoreLine: this.examscore
                     }
                 }
             }).then(function (rep) {
-                if (rep.data.stauts === "SUCCESS") {
+                if (rep.data.status === "SUCCESS") {
                     setCookie("token", rep.data.token);
-                    alert("分数线上传成功");
+                    alert("分数线设置成功");
                 } else {
-                    alert("报名失败" + rep.data.reason);
+                    alert("分数线设置失败" + rep.data.reason);
                 }
             }, function () {
                 alert("抱歉，网页当前不可用");

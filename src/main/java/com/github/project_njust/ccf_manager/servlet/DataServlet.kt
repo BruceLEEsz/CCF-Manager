@@ -15,6 +15,7 @@ import com.github.project_njust.ccf_manager.wrapper.token.TokenManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
+import org.apache.ibatis.annotations.Delete
 import java.io.InputStreamReader
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
@@ -115,6 +116,7 @@ class DataServlet : HttpServlet() {
                     AddExam(),
                     ChangePassword(),
                     Confirm(),
+                    DeleteQualification(),
                     DownLoadFinalList(),
                     DownloadSignUpList(),
                     GetApplyList(),
