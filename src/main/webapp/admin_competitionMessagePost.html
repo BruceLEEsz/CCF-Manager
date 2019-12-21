@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -29,6 +29,10 @@
 
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
+    <!--vue-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 </head>
 
 <body class="nav-md">
@@ -216,19 +220,19 @@
                             </ul>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="x_content">
+                        <div id="MessagePost" class="x_content">
                             <br />
                             <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" >时间地点信息 </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="competition" class="form-control col-md-7 col-xs-12" placeholder=>
+                                        <input type="text" id="competition" class="form-control col-md-7 col-xs-12" v-model="competition">
                                     </div>
                                 </div>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-8">
-                                        <button type="submit" class="btn btn-success singup">发布</button>
+                                        <button type="submit" class="btn btn-success singup" v-on:click="release">发布</button>
                                     </div>
                                 </div>
 
@@ -296,5 +300,6 @@
 <script src="js/cookie.js"></script>
 <script src="js/base64.min.js"></script>
 <script src="js/menuManage.js"></script>
+<script src="js/admin_competitionMessagePost.js"></script>
 </body>
 </html>

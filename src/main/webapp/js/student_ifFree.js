@@ -18,12 +18,12 @@ const app = new Vue({
                     token: getCookie("token")
                 }
             }).then(rep => {
-                if ("SUCCESS" === rep.data.stauts) {
+                if ("SUCCESS" === rep.data.status) {
                     setCookie("token", rep.data.token);
-                    this.examId = rep.data.examId;
+                    this.examId = rep.data.examId+19;
                     this.competition = rep.data.competition;
                     this.confirm = rep.data.confirm;
-                    this.code = rep.data.confirm;
+                    this.code = rep.data.code;
                 } else {
                     alert("信息加载失败" + rep.data.reason);
                 }

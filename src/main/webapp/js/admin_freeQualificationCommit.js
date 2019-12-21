@@ -6,11 +6,11 @@ const app = new Vue({
     },
     methods: {
         upload() {
-            this.formData.append('userfile', document.getElementById('freeQualification').files[0]);
+            this.formData.append('userfile', document.getElementById('i-file').files[0]);
             this.formData.append("token", getCookie("token"));
             axios({
                 url: "/File/upload",
-                methods: "POST",
+                method: "POST",
                 data: formData
             }).then(function (rep) {
                     if (rep.data.status === 'SUCCESS') {
