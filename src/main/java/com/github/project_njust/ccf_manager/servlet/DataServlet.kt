@@ -125,9 +125,10 @@ class DataServlet : HttpServlet() {
                     SetQualification(),
                     SetScoreLine(),
                     SignUp(),
-                    UpdateFinalList(),
-                    UpdateStudentInfo(),
-                    UpdateStudentScore()
+                    UploadFinalList(),
+                    UploadStudentInfo(),
+                    UploadStudentScore(),
+                    ScoreInfo
             )){
                 services["/${ser.name}"] = ser
             }
