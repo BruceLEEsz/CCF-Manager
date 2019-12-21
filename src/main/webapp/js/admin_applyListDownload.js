@@ -1,29 +1,23 @@
 const app = new Vue({
-    el: "#code",
-    data: {
-        code: ''
-    },
+    el: "#exportBtn",
     methods: {
-        set: function () {
+        downloadSignUpList: function () {
             axios({
-                url: "/Data/setCode",
+                url: "/Data/downloadSignUpList",
                 method: "POST",
                 data: {
-                    token: getCookie("token"),
-                    params: {
-                        code: this.code
-                    }
+                    token: getCookie("token")
                 }
             }).then(function (rep) {
                 if (rep.data.status === 'SUCCESS') {
                     setCookie("token", rep.data.token);
-                    alert("团报码发布成功");
+                    window.location.href = "/File/download?file=" + rep.data.UUID;
                 } else {
-                    alert("团报码发布失败" + rep.data.reason);
+                    alert("获取报名名单失败" + rep.data.reason);
                 }
             }, function () {
                 alert("抱歉，服务器当前不可用");
             })
         }
     }
-});
+})

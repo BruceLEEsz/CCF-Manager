@@ -1,7 +1,7 @@
 const app = new Vue({
         el: "#demo-form2",
         data: {
-            examId: "19"
+            examId: "暂无考试"
         },
         methods: {
             signUp: function () {
@@ -20,7 +20,7 @@ const app = new Vue({
                     }
                 }, function () {
                     alert("抱歉，网页当前不可用");
-                })
+                });
             }
         },
         created: function () {
@@ -33,9 +33,9 @@ const app = new Vue({
             }).then(function (rep) {
                 if (rep.data.status === 'SUCCESS') {
                     setCookie("token", rep.data.token);
-                    this.examId = rep.data.examId;
+                    app.examId = rep.data.examId;
                 } else {
-                    console.log("获取竞赛标识失败" + rep.data.reason);
+                    alert(rep.data.reason);
                 }
             }, function () {
                 alert("抱歉，网页当前不可用");

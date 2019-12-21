@@ -264,7 +264,7 @@
                             <div class="row">
                                 <div class="col-md-offset-10 col-md-2">
                                     <button id="exportBtn" class="export-excel btn btn-block btn-info"
-                                            data-table="#countTable">
+                                            data-table="#countTable" v-on:click="downloadSignUpList">
                                         导出免费名单
                                     </button>
                                 </div>
@@ -370,9 +370,9 @@
 <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="build/js/custom.min.js"></script>
-<script src="js/admin_freeListManage.js"></script>
-<script src="js/cookie.js"></script>
 <script src="js/base64.min.js"></script>
+<script src="js/cookie.js"></script>
+<script src="js/admin_freeListManage.js"></script>
 <script src="js/menuManage.js"></script>
 </body>
 </html>

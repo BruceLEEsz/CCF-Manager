@@ -12,17 +12,26 @@ import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
+import java.io.*
 import java.util.*
 
 object ExcelUtil {
 
     private fun loadBook(file: File): Workbook {
-        return XSSFWorkbook(file)
+        try {
+            return XSSFWorkbook(file)
+        }catch (e:Throwable){
+            return HSSFWorkbook(FileInputStream(file))
+        }
     }
 
+    private fun loadBook(file: InputStream): Workbook {
+        try {
+            return XSSFWorkbook(file)
+        }catch (e:Throwable){
+            return HSSFWorkbook(file)
+        }
+    }
     private fun Cell.getString(): String {
         return when (cellType) {
             CellType.STRING -> stringCellValue

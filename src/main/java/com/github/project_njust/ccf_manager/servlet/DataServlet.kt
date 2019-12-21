@@ -31,7 +31,6 @@ class DataServlet : HttpServlet() {
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         resp.characterEncoding = ContextManager.getEncoding()
         resp.status = 400
-        resp.setHeader("Content-type", "application/json;charset=UTF-8");
         resp.writer.println("错误 请用POST访问")
     }
 
@@ -126,8 +125,7 @@ class DataServlet : HttpServlet() {
                     SignUp(),
                     UpdateFinalList(),
                     UpdateStudentInfo(),
-                    UpdateStudentScore(),
-                    ScoreInfo
+                    UpdateStudentScore()
             )){
                 services["/${ser.name}"] = ser
             }

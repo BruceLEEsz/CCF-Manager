@@ -26,7 +26,7 @@ public class AddExam extends Service {
     @Override
     public @NotNull IResponse onRequest(@NotNull ISubmitData input) {
         String signUpTime = input.getData().getString("signUpTime");//报名时间
-        int scoreLine = input.getData().getInt("scroeLine");//分数线
+        int scoreLine = input.getData().getInt("scoreLine");//分数线
 
         DateFormat dateFormat;
         dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
