@@ -135,6 +135,7 @@ object SQLManager {
         } catch (t: Throwable) {
             Logger.getLogger(SQLManager::class.java).error("初始化数据库中发生错误", t)
         }
+        Logger.getLogger(SQLManager::class.java).info("数据库连接池初始化完成")
     }
 
     private fun createTable() {

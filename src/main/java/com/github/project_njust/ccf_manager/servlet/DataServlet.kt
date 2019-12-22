@@ -17,6 +17,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import org.apache.ibatis.annotations.Delete
+import org.apache.log4j.Logger
 import java.io.InputStreamReader
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
@@ -39,7 +40,7 @@ class DataServlet : HttpServlet() {
         req.characterEncoding = ContextManager.getEncoding()
         val data = MemorySection.parser.parse(InputStreamReader(req.inputStream)).asJsonObject
         val path = req.pathInfo
-        println("path:$path")
+        println("path: $path, input: $data")
         val service = services[path]
         if (service == null) {
             resp.status = 404
@@ -79,7 +80,7 @@ class DataServlet : HttpServlet() {
                     return@launch
                 }
             }
-            val input = parms.getJsonSection("params")!!
+            val input = parms.getJsonSection("params") ?: JsonSection.createSection()
             val user: User?
             if (token?.uid != null) {
                 user = SQLManager.getUserManager().selectUserById(token?.uid)
@@ -90,9 +91,13 @@ class DataServlet : HttpServlet() {
             val result = withTimeoutOrNull(5000) {
                 if (service.isCoroutines) {
                     val cs = service as CoroutinesService
-                    cs.onCoroutinesRequest(submitData)
+                    val r =  cs.onCoroutinesRequest(submitData)
+                    Logger.getLogger(DataServlet::class.java).info("Result: $r")
+                    r
                 } else {
-                    service.onRequest(submitData)
+                    val r = service.onRequest(submitData)
+                    Logger.getLogger(DataServlet::class.java).info("Result: $r")
+                    r
                 }
             }
             val writer = resp.writer
@@ -113,11 +118,13 @@ class DataServlet : HttpServlet() {
         fun init() {
             for (ser in listOf(
                     AddExam(),
+                    ChangePassword(),
                     Confirm(),
                     DeleteQualification(),
                     DownLoadFinalList(),
                     DownloadSignUpList(),
                     GetApplyList(),
+                    GetExamId(),
                     GetScore(),
                     Login(),
                     SetCode(),
@@ -132,7 +139,7 @@ class DataServlet : HttpServlet() {
             )){
                 services["/${ser.name}"] = ser
             }
-            println("DataServlet初始化完成")
+            Logger.getLogger(DataServlet::class.java).info("DataServlet初始化完成")
         }
     }
 }

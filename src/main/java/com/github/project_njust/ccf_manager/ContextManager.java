@@ -31,7 +31,7 @@ public class ContextManager implements ServletContextListener {
             SQLManager.getUserManager().createAdmin("admin", IUserManager.hashPassword("admin"));
             SQLManager.getUserManager().createPrincipal("社团",IUserManager.hashPassword("123456"));
         }
-        System.out.println("CCF Manager初始化完成");
+        Logger.getLogger(ContextManager.class).info("CCF Manager初始化完成");
     }
 
     @Override
