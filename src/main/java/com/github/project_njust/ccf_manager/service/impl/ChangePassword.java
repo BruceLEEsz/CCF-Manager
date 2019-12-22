@@ -7,6 +7,7 @@ import com.github.project_njust.ccf_manager.model.User;
 import com.github.project_njust.ccf_manager.service.IResponse;
 import com.github.project_njust.ccf_manager.service.ISubmitData;
 import com.github.project_njust.ccf_manager.service.Service;
+import com.github.project_njust.ccf_manager.sql.IUserManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DateFormat;
@@ -17,13 +18,13 @@ import java.util.Locale;
 
 public class ChangePassword extends Service {
     public ChangePassword() {
-        super("changepassword", UserType.PRINCIPAL,UserType.ADMIN,UserType.STUDENT);
+        super("changePassword", UserType.PRINCIPAL,UserType.ADMIN,UserType.STUDENT);
     }
 
     @Override
     public @NotNull IResponse onRequest(@NotNull ISubmitData input) {
-        String password1 = input.getData().getString("oldpassword");
-        String password2 = input.getData().getString("newpassword");
+        String password1 = IUserManager.hashPassword(input.getData().getString("oldPassword"));
+        String password2 = IUserManager.hashPassword(input.getData().getString("newPassword"));
         User us = input.getUser();
         int uid = us.getUid();
 

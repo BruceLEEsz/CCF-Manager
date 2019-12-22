@@ -20,9 +20,8 @@ const app = new Vue({
                     }
                 }).then(function (rep) {
                     if (rep.status === "SUCCESS") {
-                        setCookie("token", rep.data.token);
                         alert("密码修改成功，请重新登录");
-                        setCookie("token", "");
+                        logout();
                         window.location.href = "/login.html";
                     } else {
                         alert("密码修改失败，" + rep.data.reason);

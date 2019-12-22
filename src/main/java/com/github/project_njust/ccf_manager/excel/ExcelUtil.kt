@@ -114,7 +114,7 @@ object ExcelUtil {
                 ?: throw IllegalStateException("错误 还没有任何进行中的考试")
         for (index in 3..she.lastRowNum) {
             val row = she.getRow(index)
-            if (row?.getCell(0) == null || row.getCell(0).stringCellValue.isEmpty()) {
+            if (row?.getCell(0) == null ) {
                 continue
             }
             try {
@@ -125,7 +125,9 @@ object ExcelUtil {
                 }
                 val name = row.getCell(1).getString()
                 val idc = row.getCell(3).getString().toUpperCase()
+                println("idc: $idc")
                 val score = row.getCell(11).getInt()!!
+                println("score: $score")
                 val iscorew = Array<Int>(5) {
                     row.getCell(12 + it).getInt()!!
                 }
@@ -133,7 +135,6 @@ object ExcelUtil {
                         .firstOrNull() ?: continue
                 var s = SQLManager.getExamScoreManager().selectExamScore(stu.uid, last.examid)
                 if (s == null) {
-
                     s = ExamScore(stu.uid, last.examid, true, score, JsonSection.createSection())
                     SQLManager.getExamScoreManager().insertExamScore(s)
                 }

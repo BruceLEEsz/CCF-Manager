@@ -43,7 +43,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="admin_home.html" class="site_title"><i class="fa fa-paw"></i> <span>CCF报名系统</span></a>
+                    <a href="admin_home.html" class="site_title"><span>CCF报名系统</span></a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -143,7 +143,7 @@
 
                 </div>
                 <div class="clearfix"></div>
-                <div class="row">
+                <div id="freeListTable"  class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
@@ -151,7 +151,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <br/>
-                            <div class="row">
+                            <div  class="row">
                                 <div class="col-md-offset-10 col-md-2">
                                     <button id="exportBtn" class="export-excel btn btn-block btn-info"
                                             data-table="#countTable" v-on:click="downloadSignUpList">
@@ -163,7 +163,7 @@
                             <div class="x_content">
                                 <p class="text-muted font-13 m-b-30">
                                 </p>
-                                <div id="freeListTable">
+
                                     <table style="text-align: center"
                                            class="table table-striped table-bordered table-hover">
                                         <thead>
@@ -195,7 +195,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                </div>
+
                             </div>
                         </div>
                     </div>
