@@ -1,12 +1,12 @@
 const app = new Vue({
     el: "#ifFree",
     data: {
-        examId: "19",
-        competition: "CCF能力认证考试",
-        confirm: "FALSE",
-        code: "NONE"
+        examId: "",
+        competition: "",
+        confirm: "",
+        code: ""
     },
-    created(){
+    created() {
         this.init();
     },
     methods: {
@@ -20,9 +20,18 @@ const app = new Vue({
             }).then(rep => {
                 if ("SUCCESS" === rep.data.status) {
                     setCookie("token", rep.data.token);
-                    this.examId = rep.data.examId+19;
-                    this.competition = rep.data.competition;
-                    this.confirm = rep.data.confirm;
+                    this.examId = Number(rep.data.examId) + 19;
+                    if (rep.data.competition === "") {
+                        this.competition = "暂无"
+                    } else {
+                        this.competition = rep.data.competition;
+                    }
+                    if (rep.data.confirm) {
+                        this.confirm = "是"
+                    } else {
+                        this.confirm = "否"
+                    }
+
                     this.code = rep.data.code;
                 } else {
                     alert("信息加载失败" + rep.data.reason);

@@ -1,8 +1,9 @@
 .bg {
-    background:url(../images/bridge.jpg) no-repeat ;
-    background-size:cover;
+    background: url(../images/bridge.jpg) no-repeat;
+    background-size: cover;
 }
-.bgwhite{
-    background-color:white;
-    background-size:contain;
+
+.bgwhite {
+    background-color: #F2F5F7;
+    background-size: contain;
 }

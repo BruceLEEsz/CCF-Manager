@@ -208,8 +208,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="(score,index) in allScores" :key="index">
-                                    <td>{{score.examId}}</td>
+                                <tr v-for="score in allScores">
+                                    <td>{{score.examId+19}}</td>
                                     <td>{{score.examGrade}}</td>
                                 </tr>
                                 </tbody>

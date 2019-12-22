@@ -16,6 +16,7 @@ import com.github.project_njust.ccf_manager.wrapper.token.TokenManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
+import org.apache.ibatis.annotations.Delete
 import java.io.InputStreamReader
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
@@ -113,6 +114,7 @@ class DataServlet : HttpServlet() {
             for (ser in listOf(
                     AddExam(),
                     Confirm(),
+                    DeleteQualification(),
                     DownLoadFinalList(),
                     DownloadSignUpList(),
                     GetApplyList(),
@@ -123,9 +125,10 @@ class DataServlet : HttpServlet() {
                     SetQualification(),
                     SetScoreLine(),
                     SignUp(),
-                    UpdateFinalList(),
-                    UpdateStudentInfo(),
-                    UpdateStudentScore()
+                    UploadFinalList(),
+                    UploadStudentInfo(),
+                    UploadStudentScore(),
+                    ScoreInfo
             )){
                 services["/${ser.name}"] = ser
             }

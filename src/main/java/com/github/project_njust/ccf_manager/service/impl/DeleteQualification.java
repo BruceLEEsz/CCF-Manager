@@ -12,9 +12,9 @@ import com.github.project_njust.ccf_manager.service.Service;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SetQualification extends Service {
-    public SetQualification(){
-        super("setQualification", UserType.ADMIN);
+public class DeleteQualification extends Service {
+    public DeleteQualification(){
+        super("deleteQualification", UserType.ADMIN);
     }
 
     @Override
@@ -22,17 +22,22 @@ public class SetQualification extends Service {
         String studentid = input.getData().getString("studentID");
         Student student = SQLManager.getStudentManager().selectStudentByStudentID(studentid);
         if (student == null) {
-                IResponse res = IResponse.createIResponse(IResponse.Status.ERROR);
-                res.set("reason", "找不到学生信息");
-                return res;
+            IResponse res = IResponse.createIResponse(IResponse.Status.ERROR);
+            res.set("reason", "找不到学生信息");
+            return res;
         }
 
         ExamInfo examInfo =SQLManager.getExamInfoManager().getLastInfo();
+        if (examInfo == null) {
+            IResponse res = IResponse.createIResponse(IResponse.Status.ERROR);
+            res.set("reason", "找不到考试信息");
+            return res;
+        }
         int uid = student.getUid();
         int examid = examInfo.getExamid();
 
         @Nullable ExamScore examscore = SQLManager.getExamScoreManager().selectExamScore(uid,examid);
-        examscore.setConfirm(true);
+        examscore.setConfirm(false);
         SQLManager.getExamScoreManager().updateExamScore(examscore);
 
         IResponse res = IResponse.createIResponse(IResponse.Status.SUCCESS);

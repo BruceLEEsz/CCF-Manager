@@ -29,6 +29,10 @@
 
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
+
+    <!--ecchart-->
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+
 </head>
 
 <body class="nav-md">
@@ -48,8 +52,7 @@
                         <img src="images/img1.png" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
-                        <span>欢迎,</span>
-                        <h2>???</h2>
+                        <h2><span>欢迎</span></h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -93,23 +96,6 @@
                     </div>
                 </div>
                 <!-- /sidebar menu -->
-
-                <!-- /menu footer buttons -->
-                <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" data-placement="top" title="设置">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="全屏">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="锁定">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="注销" href="login.html">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                    </a>
-                </div>
-                <!-- /menu footer buttons -->
             </div>
         </div>
 
@@ -125,51 +111,15 @@
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                                aria-expanded="false">
-                                <img src="images/img1.png" alt="">？？？
+                                <img src="images/img1.png" alt="">
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;">
-                                    <span>简介</span>
-                                    <span class="badge bg-red pull-right">1</span>
-                                </a></li>
-
-                                <li>
-                                    <a href="javascript:;">
-                                        <span>设置</span>
-                                    </a>
+                                <li><a href="javascript:void(0);" onclick="changePassword()"><i
+                                        class="glyphicon glyphicon-cog pull-right"></i>修改密码</a>
                                 </li>
-                                <li><a href="javascript:;">帮助</a></li>
-                                <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> 注销</a></li>
-                            </ul>
-                        </li>
-
-                        <li role="presentation" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
-                               aria-expanded="false">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="badge bg-green">1</span>
-                            </a>
-                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                <li>
-                                    <a>
-                                        <span>
-                          <span>通知</span>
-                          <span class="time">3分钟前</span>
-                        </span>
-                                        <span class="message">
-                          第19次CCF认证考试报名已开始。
-                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="text-center">
-                                        <a>
-                                            <strong>查看全部</strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </div>
-                                </li>
+                                <li><a href="javascript:void(0);" onclick="logout()"><i
+                                        class="fa fa-sign-out pull-right"></i> 注销</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -180,69 +130,82 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-            <div class="">
-                <div class="page-title">
-                    <div class="title_left">
-                        <h3>成绩报表下载</h3>
-                    </div>
-
-                    <div class="title_right">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="信息搜索...">
-                                <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">搜索</button>
-                    </span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>成绩报表查看</h3>
                 </div>
-                <div class="clearfix"></div>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br/>
+                            <div class="container">
+                                <ul class="nav nav-tabs nav-justified">
+                                    <li id="showScoreDistribution" class="active"><a href="javascript:void(0)"
+                                                                                     onclick="showScoreDistribution()">查看分数分布</a>
                                     </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                           aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">设置1</a>
-                                            </li>
-                                            <li><a href="#">设置2</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                    </li>
+                                    <li id="showAverageScore"><a href="javascript:void(0)"
+                                                                 onclick="showAverageScore()">查看特征值</a></li>
                                 </ul>
-                                <div class="clearfix"></div>
                             </div>
-                            <div class="x_content">
-                                <br/>
-                                <button id="exportBtn" class="export-excel btn btn-default" data-table="#countTable">
-                                    下载
-                                </button>
+                            <hr/>
+                            <div class="row">
+                                <div id="nav1" class="col-md-1">
+                                    <ul class="nav nav-pills nav-stacked">
+                                        <li id="0"><a href="javascript:void(0)" onclick="chooseIndex1('0')">总成绩</a></li>
+                                        <li id="1"><a href="javascript:void(0)" onclick="chooseIndex1('1')">第一题</a></li>
+                                        <li id="2"><a href="javascript:void(0)" onclick="chooseIndex1('2')">第二题</a></li>
+                                        <li id="3"><a href="javascript:void(0)" onclick="chooseIndex1('3')">第三题</a></li>
+                                        <li id="4"><a href="javascript:void(0)" onclick="chooseIndex1('4')">第四题</a></li>
+                                        <li id="5"><a href="javascript:void(0)" onclick="chooseIndex1('5')">第五题</a></li>
+                                    </ul>
+                                </div>
+
+                                <div id="nav2" style="display: none" class="col-md-1">
+                                    <ul class="nav nav-pills nav-stacked">
+                                        <li id="00"><a href="javascript:void(0)" onclick="chooseIndex2('0')">总成绩</a>
+                                        </li>
+                                        <li id="11"><a href="javascript:void(0)" onclick="chooseIndex2('1')">第一题</a>
+                                        </li>
+                                        <li id="22"><a href="javascript:void(0)" onclick="chooseIndex2('2')">第二题</a>
+                                        </li>
+                                        <li id="33"><a href="javascript:void(0)" onclick="chooseIndex2('3')">第三题</a>
+                                        </li>
+                                        <li id="44"><a href="javascript:void(0)" onclick="chooseIndex2('4')">第四题</a>
+                                        </li>
+                                        <li id="55"><a href="javascript:void(0)" onclick="chooseIndex2('5')">第五题</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-11" id="gradeChartContainer1">
+                                    <div id="gradeChart1" style="align-content:center;width: 100%;height:400px;">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-11" style="display: none"
+                                     id="gradeChartContainer2">
+                                    <div id="gradeChart2" style="width:1100px;height: 400px;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-            <div class="pull-right">
-                CCF免费报名系统 by <a href="http://www.njust.edu.cn/">njust</a>
-            </div>
-            <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
     </div>
 </div>
+<!-- footer content -->
+<footer>
+    <div class="pull-right">
+        CCF免费报名系统 by <a href="http://www.njust.edu.cn/">njust</a>
+    </div>
+    <div class="clearfix"></div>
+</footer>
 
 <!-- jQuery -->
 <script src="vendors/jquery/dist/jquery.min.js"></script>
@@ -286,8 +249,11 @@
 
 <!-- Custom Theme Scripts -->
 <script src="build/js/custom.min.js"></script>
+
+
 <script src="js/cookie.js"></script>
 <script src="js/base64.min.js"></script>
 <script src="js/menuManage.js"></script>
+<script src="js/admin_gradeListDownload.js"></script>
 </body>
 </html>
