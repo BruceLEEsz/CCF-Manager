@@ -26,12 +26,12 @@ public interface IResponse extends JsonSection {
     void setStatus(@NotNull Status s);
 
     @NotNull
-    public static IResponse createIResponse(@NotNull Status s){
+    public static IResponse createIResponse(@NotNull Status s) {
         return new Response(s);
     }
 
     @NotNull
-    public static IResponse createIResponse(){
+    public static IResponse createIResponse() {
         return new Response(Status.SUCCESS);
     }
 

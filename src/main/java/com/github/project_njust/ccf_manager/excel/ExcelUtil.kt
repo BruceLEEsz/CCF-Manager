@@ -20,7 +20,7 @@ object ExcelUtil {
     private fun loadBook(file: File): Workbook {
         try {
             return XSSFWorkbook(file)
-        }catch (e:Throwable){
+        } catch (e: Throwable) {
             return HSSFWorkbook(FileInputStream(file))
         }
     }
@@ -28,10 +28,11 @@ object ExcelUtil {
     private fun loadBook(file: InputStream): Workbook {
         try {
             return XSSFWorkbook(file)
-        }catch (e:Throwable){
+        } catch (e: Throwable) {
             return HSSFWorkbook(file)
         }
     }
+
     private fun Cell.getString(): String {
         return when (cellType) {
             CellType.STRING -> stringCellValue
@@ -114,7 +115,7 @@ object ExcelUtil {
                 ?: throw IllegalStateException("错误 还没有任何进行中的考试")
         for (index in 3..she.lastRowNum) {
             val row = she.getRow(index)
-            if (row?.getCell(0) == null ) {
+            if (row?.getCell(0) == null) {
                 continue
             }
             try {
@@ -193,7 +194,8 @@ object ExcelUtil {
                 }
                 val sid = row.getCell(0).getString()
                 val stu = SQLManager.getStudentManager().selectStudentByStudentID(sid) ?: continue
-                val es = SQLManager.getExamScoreManager().selectExamScore(stu.uid, last.examid) ?: continue
+                val es = SQLManager.getExamScoreManager().selectExamScore(stu.uid, last.examid)
+                        ?: continue
                 es.confirm = true
                 SQLManager.getExamScoreManager().updateExamScore(es)
             } catch (e: Throwable) {
@@ -203,7 +205,7 @@ object ExcelUtil {
     }
 
     @JvmStatic
-    fun createFinalList():UUID{
+    fun createFinalList(): UUID {
         val last = SQLManager.getExamInfoManager().lastInfo
                 ?: throw IllegalStateException("错误 还没有任何进行中的考试")
         val (uuid, file) = FileUploadServlet.createCacheFile()
@@ -212,8 +214,8 @@ object ExcelUtil {
         val sheet = book.getSheetAt(0)
         val list = SQLManager.getExamScoreManager().selectAllExamScore(last.examid)
         var index = 1
-        for(es in list){
-            if(!es.confirm){
+        for (es in list) {
+            if (!es.confirm) {
                 continue
             }
             val stu = SQLManager.getStudentManager().selectStudent(es.uid) ?: continue

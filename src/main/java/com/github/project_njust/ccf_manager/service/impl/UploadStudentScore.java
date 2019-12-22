@@ -4,7 +4,6 @@ import com.github.project_njust.ccf_manager.SQLManager;
 import com.github.project_njust.ccf_manager.UserType;
 import com.github.project_njust.ccf_manager.excel.ExcelUtil;
 import com.github.project_njust.ccf_manager.model.ExamScore;
-import com.github.project_njust.ccf_manager.model.Student;
 import com.github.project_njust.ccf_manager.service.IResponse;
 import com.github.project_njust.ccf_manager.service.ISubmitData;
 import com.github.project_njust.ccf_manager.service.Service;

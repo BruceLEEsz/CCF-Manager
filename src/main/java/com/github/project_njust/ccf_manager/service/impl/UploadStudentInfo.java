@@ -4,19 +4,18 @@ import com.github.project_njust.ccf_manager.SQLManager;
 import com.github.project_njust.ccf_manager.UserType;
 import com.github.project_njust.ccf_manager.excel.ExcelUtil;
 import com.github.project_njust.ccf_manager.model.Student;
-import com.github.project_njust.ccf_manager.model.User;
 import com.github.project_njust.ccf_manager.service.IResponse;
 import com.github.project_njust.ccf_manager.service.ISubmitData;
 import com.github.project_njust.ccf_manager.service.Service;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class UploadStudentInfo extends Service {
-    public UploadStudentInfo(){
+    public UploadStudentInfo() {
         super("uploadStudentInfo", UserType.ADMIN);
     }
 
@@ -30,7 +29,7 @@ public class UploadStudentInfo extends Service {
             for (Student students1 : students) {
                 int uid = students1.getUid();
                 @Nullable Student student = SQLManager.getStudentManager().selectStudent(uid);
-                if(student==null){
+                if (student == null) {
                     SQLManager.getStudentManager().insertStudent(students1);
                 }
             }

@@ -8,6 +8,7 @@ import com.github.project_njust.ccf_manager.model.User;
 import com.github.project_njust.ccf_manager.service.IResponse;
 import com.github.project_njust.ccf_manager.service.ISubmitData;
 import com.github.project_njust.ccf_manager.service.Service;
+
 import org.jetbrains.annotations.NotNull;
 
 public class Confirm extends Service {
@@ -36,7 +37,7 @@ public class Confirm extends Service {
         res.set("confirm", confirm);
         res.set("competition", examInfo.getData().getString(ExamInfo.KEY_COMPETITION));
         res.set("code", code);
-        res.set("examId",examInfo.getExamid());
+        res.set("examId", examInfo.getExamid());
         return res;
     }
 }

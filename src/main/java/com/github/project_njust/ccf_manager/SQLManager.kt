@@ -1,7 +1,13 @@
 package com.github.project_njust.ccf_manager
 
-import com.github.project_njust.ccf_manager.sql.*
-import com.github.project_njust.ccf_manager.sql.impl.*
+import com.github.project_njust.ccf_manager.sql.IExamInfoManager
+import com.github.project_njust.ccf_manager.sql.IExamScoreManager
+import com.github.project_njust.ccf_manager.sql.IStudentManager
+import com.github.project_njust.ccf_manager.sql.IUserManager
+import com.github.project_njust.ccf_manager.sql.impl.ExamInfoManagerImpl
+import com.github.project_njust.ccf_manager.sql.impl.ExamScoreManagerImpl
+import com.github.project_njust.ccf_manager.sql.impl.StudentManagerImpl
+import com.github.project_njust.ccf_manager.sql.impl.UserManagerImpl
 import com.github.project_njust.ccf_manager.wrapper.json.MemorySection
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -192,11 +198,13 @@ CREATE TABLE IF NOT EXISTS ExamScore
 
     @JvmStatic
     fun getExamInfoManager(): IExamInfoManager = ExamInfoManagerImpl
+
     @JvmStatic
     fun getExamScoreManager(): IExamScoreManager = ExamScoreManagerImpl
 
     @JvmStatic
     fun getStudentManager(): IStudentManager = StudentManagerImpl
+
     @JvmStatic
     fun getUserManager(): IUserManager = UserManagerImpl
 }

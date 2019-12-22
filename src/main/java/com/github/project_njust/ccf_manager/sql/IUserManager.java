@@ -72,7 +72,8 @@ public interface IUserManager {
      * 本方法会有以下几种情况:
      * [1]: 输入管理员用户名或社团用户名 返回对应的uid
      * [2]: 输入学号    若学生未登入将会返回-2 !!!
-     *      *
+     * *
+     *
      * @param name 用户名
      * @return 见上
      */
