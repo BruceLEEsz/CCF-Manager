@@ -29,7 +29,7 @@ public class Student {
         return studentId;
     }
 
-    public boolean hasUid(){
+    public boolean hasUid() {
         return this.uid != -1;
     }
 

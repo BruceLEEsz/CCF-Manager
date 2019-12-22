@@ -47,7 +47,7 @@ class FileDownloadServlet : HttpServlet() {
         }
         if (files.containsKey(fileName)) {
             val name = files[fileName]!!
-            resp.setHeader("Content-Disposition", "attachment;filename=${URLEncoder.encode(name,"UTF-8")}");
+            resp.setHeader("Content-Disposition", "attachment;filename=${URLEncoder.encode(name, "UTF-8")}");
             val ins = Thread.currentThread().contextClassLoader.getResourceAsStream(name)
             resp.status = 200
             val out = resp.outputStream
@@ -60,12 +60,12 @@ class FileDownloadServlet : HttpServlet() {
                 val uuid = UUID.fromString(fileName)
                 println("uuid: $uuid")
                 val file = FileUploadServlet.cacheFiles[uuid]
-                if(file == null){
+                if (file == null) {
                     resp.status = 404
                     return
                 }
                 val fname = FileUploadServlet.cacheFileName[uuid] ?: uuid.toString()
-                resp.setHeader("Content-Disposition", "attachment;filename=${URLEncoder.encode(fname,"UTF-8")}");
+                resp.setHeader("Content-Disposition", "attachment;filename=${URLEncoder.encode(fname, "UTF-8")}");
                 val ins = FileInputStream(file)
                 val out = resp.outputStream
                 out.write(ins)

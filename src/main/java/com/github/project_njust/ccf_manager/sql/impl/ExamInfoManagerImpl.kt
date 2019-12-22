@@ -1,17 +1,11 @@
 package com.github.project_njust.ccf_manager.sql.impl
 
 import com.github.project_njust.ccf_manager.SQLManager
-import com.github.project_njust.ccf_manager.SQLManager.evictConnection
-import com.github.project_njust.ccf_manager.SQLManager.getConnection
 import com.github.project_njust.ccf_manager.model.ExamInfo
 import com.github.project_njust.ccf_manager.sql.IExamInfoManager
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
 import kotlinx.coroutines.runBlocking
-import java.lang.IllegalStateException
 import java.sql.Date
-import java.sql.PreparedStatement
-import java.sql.ResultSet
-import java.sql.SQLException
 
 object ExamInfoManagerImpl : IExamInfoManager {
     override fun createExamInformation(score: Int, date: Date): ExamInfo = runBlocking {

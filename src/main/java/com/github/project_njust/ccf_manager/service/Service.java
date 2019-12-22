@@ -2,7 +2,6 @@ package com.github.project_njust.ccf_manager.service;
 
 import com.github.project_njust.ccf_manager.UserType;
 import com.github.project_njust.ccf_manager.service.kt.CoroutinesService;
-import com.github.project_njust.ccf_manager.wrapper.json.JsonSection;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +14,7 @@ public abstract class Service {
 
     /**
      * 构造服务
+     *
      * @param name 服务名
      * @parm types 允许访问的用户类型
      */

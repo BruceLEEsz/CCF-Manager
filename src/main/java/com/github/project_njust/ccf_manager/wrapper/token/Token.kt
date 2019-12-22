@@ -20,9 +20,9 @@ class Token(
         val jti: Long = Random.nextLong()
 ) {
 
-    constructor(user:User):this(user.uid, UserType.getType(user.type))
+    constructor(user: User) : this(user.uid, UserType.getType(user.type))
 
-    fun toTokenString():String{
+    fun toTokenString(): String {
         val json = JsonSection.createSection()
         json["uid"] = uid
         json["userType"] = userType.name
@@ -53,7 +53,7 @@ fun String.hashSHA256(): String {
     return byteArrayToHexString(ba)
 }
 
-fun String.hashSHA256WithSalt(exsalt:String, salt: String = TokenManager.Signature): String {
+fun String.hashSHA256WithSalt(exsalt: String, salt: String = TokenManager.Signature): String {
     val ba = instance.digest("$exsalt-$this-$salt-ccf".toByteArray())
     return byteArrayToHexString(ba)
 }

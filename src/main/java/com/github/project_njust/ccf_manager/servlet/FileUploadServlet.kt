@@ -3,7 +3,6 @@ package com.github.project_njust.ccf_manager.servlet
 import com.github.project_njust.ccf_manager.ContextManager
 import com.github.project_njust.ccf_manager.FileManager
 import com.github.project_njust.ccf_manager.service.IResponse
-import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
 import com.github.project_njust.ccf_manager.wrapper.token.TokenManager
 import org.apache.commons.fileupload.FileItem
 import org.apache.commons.fileupload.FileItemFactory
@@ -32,7 +31,7 @@ class FileUploadServlet : HttpServlet() {
 
     companion object : ProgressListener {
         val cacheFiles = HashMap<UUID, File>()
-        val cacheFileName = hashMapOf<UUID,String>()
+        val cacheFileName = hashMapOf<UUID, String>()
 
         override fun update(pBytesRead: Long, pContentLength: Long, pItems: Int) {
         }
@@ -40,7 +39,7 @@ class FileUploadServlet : HttpServlet() {
         fun init() {
         }
 
-        fun createCacheFile():Pair<UUID,File>{
+        fun createCacheFile(): Pair<UUID, File> {
             val uuid = UUID.randomUUID()
             val file = File(FileManager.tempFilesFolder, "$uuid")
             cacheFiles[uuid] = file

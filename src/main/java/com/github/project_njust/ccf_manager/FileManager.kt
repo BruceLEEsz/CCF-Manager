@@ -6,17 +6,17 @@ import java.io.InputStream
 
 object FileManager {
     val tempFilesFolder = File(getBaseFolder(), "tempFiles")
-        get(){
-            if(!field.exists()){
+        get() {
+            if (!field.exists()) {
                 field.mkdirs()
             }
             return field
         }
-    val configFolder = File(getBaseFolder(),"config")
+    val configFolder = File(getBaseFolder(), "config")
 
     @JvmStatic
-    fun clearTempFiles(){
-        for(f in tempFilesFolder.listFiles()){
+    fun clearTempFiles() {
+        for (f in tempFilesFolder.listFiles()) {
             f.deleteOnExit()
         }
     }

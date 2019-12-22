@@ -5,15 +5,15 @@ import com.github.project_njust.ccf_manager.UserType;
 import com.github.project_njust.ccf_manager.model.ExamInfo;
 import com.github.project_njust.ccf_manager.model.ExamScore;
 import com.github.project_njust.ccf_manager.model.Student;
-import com.github.project_njust.ccf_manager.model.User;
 import com.github.project_njust.ccf_manager.service.IResponse;
 import com.github.project_njust.ccf_manager.service.ISubmitData;
 import com.github.project_njust.ccf_manager.service.Service;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DeleteQualification extends Service {
-    public DeleteQualification(){
+    public DeleteQualification() {
         super("deleteQualification", UserType.ADMIN);
     }
 
@@ -27,7 +27,7 @@ public class DeleteQualification extends Service {
             return res;
         }
 
-        ExamInfo examInfo =SQLManager.getExamInfoManager().getLastInfo();
+        ExamInfo examInfo = SQLManager.getExamInfoManager().getLastInfo();
         if (examInfo == null) {
             IResponse res = IResponse.createIResponse(IResponse.Status.ERROR);
             res.set("reason", "找不到考试信息");
@@ -36,7 +36,7 @@ public class DeleteQualification extends Service {
         int uid = student.getUid();
         int examid = examInfo.getExamid();
 
-        @Nullable ExamScore examscore = SQLManager.getExamScoreManager().selectExamScore(uid,examid);
+        @Nullable ExamScore examscore = SQLManager.getExamScoreManager().selectExamScore(uid, examid);
         examscore.setConfirm(false);
         SQLManager.getExamScoreManager().updateExamScore(examscore);
 

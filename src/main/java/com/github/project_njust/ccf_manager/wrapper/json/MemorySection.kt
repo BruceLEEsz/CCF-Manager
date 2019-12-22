@@ -288,7 +288,7 @@ open class MemorySection(
         if (data is JsonElement) {
             return data
         }
-        if(data is JsonSection){
+        if (data is JsonSection) {
             val obj = data.toJsonObject()
             return obj
         }
@@ -306,7 +306,7 @@ open class MemorySection(
                 if (v is JsonElement) {
                     arr.add(v)
                 }
-                if(v is JsonSection){
+                if (v is JsonSection) {
                     arr.add(v.toJsonObject())
                 }
             }

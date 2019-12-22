@@ -4,11 +4,11 @@ import com.github.project_njust.ccf_manager.ContextManager
 import com.github.project_njust.ccf_manager.SQLManager
 import com.github.project_njust.ccf_manager.UserType
 import com.github.project_njust.ccf_manager.model.User
-import com.github.project_njust.ccf_manager.service.kt.CoroutinesService
 import com.github.project_njust.ccf_manager.service.IResponse
 import com.github.project_njust.ccf_manager.service.Service
 import com.github.project_njust.ccf_manager.service.impl.*
 import com.github.project_njust.ccf_manager.service.impl.kt.ScoreInfo
+import com.github.project_njust.ccf_manager.service.kt.CoroutinesService
 import com.github.project_njust.ccf_manager.service.kt.SubmitData
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
 import com.github.project_njust.ccf_manager.wrapper.json.MemorySection
@@ -16,7 +16,6 @@ import com.github.project_njust.ccf_manager.wrapper.token.TokenManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
-import org.apache.ibatis.annotations.Delete
 import org.apache.log4j.Logger
 import java.io.InputStreamReader
 import javax.servlet.annotation.WebServlet
@@ -65,8 +64,8 @@ class DataServlet : HttpServlet() {
                     return@launch
                 }
                 var auth = false
-                for(ut in service.allowTypes){
-                    if(token.userType.typeId >= ut.typeId){
+                for (ut in service.allowTypes) {
+                    if (token.userType.typeId >= ut.typeId) {
                         auth = true
                         break
                     }
@@ -91,7 +90,7 @@ class DataServlet : HttpServlet() {
             val result = withTimeoutOrNull(5000) {
                 if (service.isCoroutines) {
                     val cs = service as CoroutinesService
-                    val r =  cs.onCoroutinesRequest(submitData)
+                    val r = cs.onCoroutinesRequest(submitData)
                     Logger.getLogger(DataServlet::class.java).info("Result: $r")
                     r
                 } else {
@@ -136,7 +135,7 @@ class DataServlet : HttpServlet() {
                     UploadStudentInfo(),
                     UploadStudentScore(),
                     ScoreInfo
-            )){
+            )) {
                 services["/${ser.name}"] = ser
             }
             Logger.getLogger(DataServlet::class.java).info("DataServlet初始化完成")
