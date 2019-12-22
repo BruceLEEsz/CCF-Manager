@@ -7,6 +7,7 @@ import com.github.project_njust.ccf_manager.service.IResponse
 import com.github.project_njust.ccf_manager.service.ISubmitData
 import com.github.project_njust.ccf_manager.service.kt.CoroutinesService
 import com.github.project_njust.ccf_manager.wrapper.json.JsonSection
+import kotlin.math.sqrt
 
 object ScoreInfo : CoroutinesService("scoreInfo", UserType.ADMIN) {
 
@@ -69,7 +70,7 @@ object ScoreInfo : CoroutinesService("scoreInfo", UserType.ADMIN) {
                     }.sum() / score.size
                     it["average"] = average
                     it["median"] = median
-                    it["variance"] = variance
+                    it["variance"] = sqrt(variance)
                     it
                 }
             }
