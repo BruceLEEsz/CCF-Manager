@@ -94,7 +94,7 @@ function showAverageScore() {
 }
 
 function getAverageScore(index) {
-    let XData = ['均分', '中位数', '方差'];
+    let XData = ['均分', '中位数', '标准差'];
     let YData0 = [];
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST", "/Data/scoreInfo", true);
@@ -169,7 +169,7 @@ function getAverageScore(index) {
                 ],
                 series: [
                     {
-                        name: '总分',
+                        name: '分数',
                         type: 'bar',
                         /* 柱子的显示宽度 */
                         barWidth: '20%',
